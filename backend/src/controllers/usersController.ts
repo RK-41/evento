@@ -35,3 +35,24 @@ export const updateUserEvents = async (req: Request, res: Response) => {
 		res.status(500).json({ message: 'Error updating user events', error });
 	}
 };
+
+export const updateUserProfile = async (req: Request, res: Response) => {
+	try {
+		const { id } = req.params;
+		const { name } = req.body;
+
+		const updatedUser = await User.findByIdAndUpdate(
+			id,
+			{ name },
+			{ new: true }
+		);
+
+		if (!updatedUser) {
+			return res.status(404).json({ message: 'User not found' });
+		}
+
+		res.json(updatedUser);
+	} catch (error) {
+		res.status(500).json({ message: 'Error updating user profile', error });
+	}
+};

@@ -10,34 +10,8 @@ const HeroSection: React.FC = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
-      className="relative flex flex-col justify-center items-center text-center min-h-screen w-full bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 overflow-hidden pt-16"
+      className="relative flex flex-col justify-center items-center text-center min-h-screen w-full bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 overflow-hidden"
     >
-      {/* Animated background elements */}
-      <motion.div
-        animate={{
-          scale: [1, 1.2, 1],
-          rotate: [0, 180, 360],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-        className="absolute top-1/3 -left-20 w-96 h-96 bg-white/10 rounded-full blur-3xl"
-      />
-      <motion.div
-        animate={{
-          scale: [1.2, 1, 1.2],
-          rotate: [360, 180, 0],
-        }}
-        transition={{
-          duration: 15,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-        className="absolute bottom-1/3 -right-20 w-96 h-96 bg-white/10 rounded-full blur-3xl"
-      />
-
       {/* Main content */}
       <div className="relative z-[1] px-4 w-full max-w-7xl mx-auto">
         <motion.h1
@@ -69,13 +43,13 @@ const HeroSection: React.FC = () => {
         >
           <button
             onClick={() => navigate('/create-event')}
-            className="px-8 py-4 bg-white text-purple-600 rounded-full font-bold text-lg hover:bg-opacity-90 transform hover:scale-105 transition-all shadow-lg"
+            className="px-8 py-4 bg-white text-purple-600 rounded-full font-bold text-lg hover:bg-opacity-90 transform hover:scale-105 transition-all shadow-lg cursor-pointer"
           >
             Get Started
           </button>
           <button
             onClick={() => navigate('/events')}
-            className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-full font-bold text-lg hover:bg-white/10 transform hover:scale-105 transition-all"
+            className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-full font-bold text-lg hover:bg-white/10 transform hover:scale-105 transition-all cursor-pointer"
           >
             Checkout Events
           </button>

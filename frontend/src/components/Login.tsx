@@ -52,11 +52,11 @@ const Login = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8"
+      className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-600/10 via-purple-600/10 to-pink-500/10 py-12 px-4 sm:px-6 lg:px-8"
     >
-      <div className="max-w-md w-full space-y-8">
+      <div className="max-w-md w-full space-y-8 bg-white/10 backdrop-blur-lg p-8 rounded-lg shadow-xl">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-800">
             {isLogin ? 'Sign in to your account' : 'Create new account'}
           </h2>
         </div>
@@ -119,17 +119,21 @@ const Login = () => {
           )}
 
           <div className="flex flex-col gap-4">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.95 }}
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-700 hover:via-purple-700 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all"
             >
               {isLogin ? 'Sign in' : 'Sign up'}
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.95 }}
               type="button"
               onClick={handleGuestLogin}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-all"
               disabled={isLoading}
             >
               {isLoading ? (
@@ -143,19 +147,21 @@ const Login = () => {
               ) : (
                 'Continue as Guest'
               )}
-            </button>
+            </motion.button>
           </div>
         </form>
 
         <div className="text-center">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => setIsLogin(!isLogin)}
-            className="text-sm text-blue-600 hover:text-blue-500"
+            className="text-sm text-indigo-600 hover:text-indigo-500 transition-colors"
           >
             {isLogin
               ? "Don't have an account? Sign up"
               : 'Already have an account? Sign in'}
-          </button>
+          </motion.button>
         </div>
       </div>
     </motion.div>

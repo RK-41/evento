@@ -4,12 +4,10 @@ import Events from './Events';
 
 const HomePage: React.FC = () => {
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gray-50">
+    <div className="flex flex-col items-center min-h-screen">
       <HeroSection />
       <Events />
     </div>
-
-
   );
 };
 

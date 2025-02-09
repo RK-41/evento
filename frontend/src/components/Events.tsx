@@ -124,61 +124,98 @@ const Events = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500"></div>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-600/10 via-purple-600/10 to-pink-500/10">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-indigo-600"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen w-full bg-gradient-to-r from-indigo-600/10 via-purple-600/10 to-pink-500/10 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-12"
+        >
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
             Check out our Events
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Discover and participate in our exciting events happening around you
           </p>
-        </div>
+        </motion.div>
 
-        <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-          <div className="flex items-center justify-center gap-2">
-            <label className="text-gray-700">Category:</label>
-            <select
-              title="Category"
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-            >
-              <option value="all">All Categories</option>
+        {/* Filter Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="flex flex-col gap-6 mb-8"
+        >
+          {/* Categories */}
+          <div className="flex flex-col items-center gap-3">
+            <h3 className="text-gray-700 font-medium">Categories</h3>
+            <div className="flex flex-wrap justify-center gap-2">
+              <button
+                onClick={() => setSelectedCategory('all')}
+                className={`px-4 py-2 rounded-lg transition-all duration-300 ${selectedCategory === 'all'
+                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
+                    : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
+                  }`}
+              >
+                All Categories
+              </button>
               {categories.map(category => (
-                <option key={category} value={category}>{category}</option>
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-4 py-2 rounded-lg transition-all duration-300 ${selectedCategory === category
+                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
+                      : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
+                    }`}
+                >
+                  {category}
+                </button>
               ))}
-            </select>
+            </div>
           </div>
 
-          <div className="flex items-center justify-center gap-2">
-            <label className="text-gray-700">Status:</label>
-            <select
-              title="Status"
-              value={selectedStatus}
-              onChange={(e) => setSelectedStatus(e.target.value)}
-              className="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-            >
-              <option value="all">All Statuses</option>
+          {/* Statuses */}
+          <div className="flex flex-col items-center gap-3">
+            <h3 className="text-gray-700 font-medium">Status</h3>
+            <div className="flex flex-wrap justify-center gap-2">
+              <button
+                onClick={() => setSelectedStatus('all')}
+                className={`px-4 py-2 rounded-lg transition-all duration-300 ${selectedStatus === 'all'
+                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
+                    : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
+                  }`}
+              >
+                All Statuses
+              </button>
               {statuses.map(status => (
-                <option key={status} value={status}>{status}</option>
+                <button
+                  key={status}
+                  onClick={() => setSelectedStatus(status)}
+                  className={`px-4 py-2 rounded-lg transition-all duration-300 ${selectedStatus === status
+                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
+                      : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
+                    }`}
+                >
+                  {status}
+                </button>
               ))}
-            </select>
+            </div>
           </div>
-        </div>
+        </motion.div>
 
         <motion.div
           variants={container}
           initial="hidden"
           animate="show"
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"
+          // className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"
+          className='flex flex-wrap justify-center gap-6 mt-8'
         >
           {filteredEvents.map((event) => (
             <motion.div
@@ -186,17 +223,23 @@ const Events = () => {
               variants={item}
               whileHover={{ scale: 1.02 }}
               onClick={() => navigate(`/events/${event._id}`)}
-              className="cursor-pointer"
+              className="cursor-pointer transform transition-all duration-300 hover:translate-y-[-4px]"
             >
-              <EventCard event={event} />
+              <EventCard key={event._id} event={event} />
             </motion.div>
           ))}
         </motion.div>
 
         {filteredEvents.length === 0 && (
-          <div className="text-center py-12">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="text-center py-32 bg-white/10 backdrop-blur-lg rounded-xl shadow-lg"
+          >
             <h3 className="text-xl text-gray-600">No events found</h3>
-          </div>
+            <p className="text-gray-500 mt-2">Try adjusting your filters</p>
+          </motion.div>
         )}
       </div>
     </div>

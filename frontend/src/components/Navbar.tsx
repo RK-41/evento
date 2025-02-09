@@ -42,7 +42,7 @@ const Navbar: React.FC = () => {
       {/* Hamburger menu button - visible only on mobile */}
       <button
         title="Menu"
-        className="lg:hidden absolute right-16 top-4 text-white z-20"
+        className="lg:hidden absolute right-16 top-4 text-white z-20 cursor-pointer"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -77,7 +77,9 @@ const Navbar: React.FC = () => {
           lg:space-x-12
           rounded-b-lg
           px-4 lg:px-8
+          ${isMenuOpen ? 'bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500' : 'bg-transparent'}
         `}>
+
           {navItems.map((item) => (
             <li key={item.label} className="w-full lg:w-auto">
               <motion.div
@@ -111,14 +113,16 @@ const Navbar: React.FC = () => {
                     <div className="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center">
                       {user.name?.charAt(0).toUpperCase()}
                     </div>
-                    <span className="text-white">{user.name}</span>
+                    <span className="hover:text-yellow-200 transition-colors block py-2 px-4 text-center text-lg font-medium">
+                      {user.name}
+                    </span>
 
                     {/* Dropdown menu */}
                     {showDropdown && (
-                      <div className="absolute -right-5 top-full w-24 bg-white rounded-md shadow-xl z-20">
+                      <div className="absolute -right-4 top-full w-32 bg-gradient-to-r from-indigo-600/95 via-purple-600/95 to-pink-500/95 rounded-md shadow-xl z-20 text-center border border-white/20">
                         <Link
                           to="/profile"
-                          className="block px-4 py-1 text-gray-800 hover:bg-gray-100 rounded-t-md"
+                          className="block px-4 py-2 text-white hover:bg-white/20 rounded-t-md transition-colors"
                           onClick={() => setIsMenuOpen(false)}
                         >
                           Profile
@@ -128,7 +132,7 @@ const Navbar: React.FC = () => {
                             handleLogout();
                             setIsMenuOpen(false);
                           }}
-                          className="block w-full text-left px-4 py-1 text-gray-800 hover:bg-gray-100 rounded-b-md cursor-pointer"
+                          className="block w-full px-4 py-2 text-white hover:bg-white/20 rounded-b-md cursor-pointer transition-colors"
                         >
                           Logout
                         </button>
@@ -139,7 +143,7 @@ const Navbar: React.FC = () => {
               ) : (
                 <Link
                   to="/login"
-                  className="hover:text-gray-400"
+                  className="hover:text-yellow-200 transition-colors block py-2 px-4 text-center text-lg font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Login
@@ -165,14 +169,15 @@ const Navbar: React.FC = () => {
                   <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white">
                     {user.name?.charAt(0).toUpperCase()}
                   </div>
-                  <span className="text-white hover:text-yellow-200 transition-colors">{user.name}</span>
+                  <span className="text-white hover:text-yellow-200 transition-colors block py-2 px-4 text-center text-lg font-medium">{user.name}</span>
+
 
                   {/* Dropdown menu */}
                   {showDropdown && (
-                    <div className="absolute -right-2 top-full w-24 bg-white/10 backdrop-blur-lg rounded-md shadow-xl z-20">
+                    <div className="absolute -right-2 top-full w-32 bg-gradient-to-r from-indigo-600/95 via-purple-600/95 to-pink-500/95 rounded-md shadow-xl z-20 border border-white/20 text-center">
                       <Link
                         to="/profile"
-                        className="block px-4 py-1 text-white hover:text-yellow-200 hover:bg-white/20 rounded-t-md transition-colors"
+                        className="block px-4 py-2 text-white hover:bg-white/20 rounded-t-md transition-colors"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         Profile
@@ -182,7 +187,7 @@ const Navbar: React.FC = () => {
                           handleLogout();
                           setIsMenuOpen(false);
                         }}
-                        className="block w-full text-left px-4 py-1 text-white hover:text-yellow-200 hover:bg-white/20 rounded-b-md cursor-pointer transition-colors"
+                        className="block w-full px-4 py-2 text-white hover:bg-white/20 rounded-b-md cursor-pointer transition-colors"
                       >
                         Logout
                       </button>
@@ -193,7 +198,7 @@ const Navbar: React.FC = () => {
             ) : (
               <Link
                 to="/login"
-                className="text-white hover:text-yellow-200 transition-colors"
+                className="text-white hover:text-yellow-200 transition-colors block py-2 px-4 text-center text-lg font-medium"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Login

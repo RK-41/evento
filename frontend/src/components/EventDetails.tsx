@@ -168,115 +168,130 @@ const EventDetails = () => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
-
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5 }}
-      className="p-6 bg-white rounded-lg shadow-md max-w-3xl mx-auto"
+      className="min-h-screen w-full bg-gradient-to-r from-indigo-600/10 via-purple-600/10 to-pink-500/10 py-12 px-4 sm:px-6 lg:px-8"
     >
-      <motion.img
-        initial={{ scale: 0.8 }}
-        animate={{ scale: 1 }}
-        src={event.imageUrl ?? '/images/eventImage.jpg'}
-        alt={event.title}
-        className="w-full object-cover rounded-lg mt-4"
-      />
-
-      <motion.h1
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-        className="text-2xl font-bold mb-4"
+      <motion.div
+        initial={{ y: 20 }}
+        animate={{ y: 0 }}
+        className="max-w-3xl mx-auto bg-white/10 backdrop-blur-lg rounded-xl shadow-xl p-8"
       >
-        {event?.title}
-      </motion.h1>
-      <div className="space-y-2">
-        <p className={`font-semibold ${eventStatus === 'Live' ? 'text-green-500' : eventStatus === 'Upcoming' ? 'text-blue-500' : 'text-red-500'}`}>
-          {eventStatus}
+        <motion.img
+          initial={{ scale: 0.8 }}
+          animate={{ scale: 1 }}
+          src={event.imageUrl ?? '/images/eventImage.jpg'}
+          alt={event.title}
+          className="w-full h-full object-cover rounded-lg shadow-lg"
+        />
 
-        </p>
-        <div className="text-gray-500 space-y-2">
-          <p className="mb-1">
-            <span className="font-semibold">Description:</span> {event.description}
-          </p>
-          <p className="mb-1">
-            <span className="font-semibold">Date:</span> {new Date(event.date).toLocaleDateString('en-GB')}
-          </p>
-          <p className="mb-1">
-            <span className="font-semibold">Location:</span> {event.location}
-          </p>
-          <p className="mb-1">
-            <span className="font-semibold">Category:</span> {event.category}
-          </p>
-          <p className="mb-1">
-            <span className="font-semibold">Organizer:</span> {event.organizer?.name ?? 'N/A'}
-          </p>
-          <p className="mb-1">
-            <span className="font-semibold">Max Participants:</span> {event.maxParticipants}
-          </p>
-          <p className="mb-1">
-            <span className="font-semibold">Status:</span> {eventStatus}
-          </p>
-        </div>
-      </div>
+        <motion.h1
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="text-3xl font-bold text-gray-800 mt-6 mb-4"
+        >
+          {event?.title}
+        </motion.h1>
 
-      {event && (
-        <div className="mt-6">
-          <div className="flex items-center gap-4">
-            <p className="text-lg">
-              Participants: {event.participants?.length || 0} / {event.maxParticipants}
+        <div className="space-y-4">
+          <p className={`text-lg font-semibold px-4 py-1 rounded-full inline-block
+            ${eventStatus === 'Live' ? 'bg-green-500/20 text-green-700' :
+              eventStatus === 'Upcoming' ? 'bg-blue-500/20 text-blue-700' :
+                'bg-red-500/20 text-red-700'}`}
+          >
+            {eventStatus}
+          </p>
+
+          <div className="space-y-3 text-gray-700">
+            <p className="flex items-center gap-2">
+              <span className="font-semibold">Description:</span>
+              <span className="bg-white/50 backdrop-blur-sm rounded-lg px-3 py-1">{event.description}</span>
             </p>
+            <p className="flex items-center gap-2">
+              <span className="font-semibold">Date:</span>
+              <span className="bg-white/50 backdrop-blur-sm rounded-lg px-3 py-1">
+                {new Date(event.date).toLocaleDateString('en-GB')}
+              </span>
+            </p>
+            <p className="flex items-center gap-2">
+              <span className="font-semibold">Location:</span>
+              <span className="bg-white/50 backdrop-blur-sm rounded-lg px-3 py-1">{event.location}</span>
+            </p>
+            <p className="flex items-center gap-2">
+              <span className="font-semibold">Category:</span>
+              <span className="bg-white/50 backdrop-blur-sm rounded-lg px-3 py-1">{event.category}</span>
+            </p>
+            <p className="flex items-center gap-2">
+              <span className="font-semibold">Organizer:</span>
+              <span className="bg-white/50 backdrop-blur-sm rounded-lg px-3 py-1">{event.organizer?.name ?? 'N/A'}</span>
+            </p>
+            <p className="flex items-center gap-2">
+              <span className="font-semibold">Max Participants:</span>
+              <span className="bg-white/50 backdrop-blur-sm rounded-lg px-3 py-1">{event.maxParticipants}</span>
+            </p>
+          </div>
+        </div>
 
-            {!isJoined ? (
-              <button
-                onClick={handleJoinEvent}
-                disabled={eventStatus === 'Ended' || event.participants?.length >= event.maxParticipants}
-                className={`px-6 py-2 rounded-md ${eventStatus === 'Ended' || event.participants?.length >= event.maxParticipants
-                  ? 'bg-gray-400 cursor-not-allowed'
-                  : 'bg-blue-600 hover:bg-blue-700 cursor-pointer'
-                  } text-white transition-colors`}
-              >
-                {event.participants?.length >= event.maxParticipants
-                  ? 'Event Full'
-                  : 'Join Event'}
-              </button>
+        {event && (
+          <div className="mt-8 space-y-6">
+            <div className="flex items-center gap-4">
+              <p className="text-lg font-medium text-gray-800">
+                Participants: {event.participants?.length || 0} / {event.maxParticipants}
+              </p>
 
-            ) : (
-              <button
-                onClick={handleLeaveEvent}
-                className="px-6 py-2 rounded-md bg-red-600 hover:bg-red-700 text-white transition-colors cursor-pointer"
-              >
-                Leave Event
-              </button>
+              {!isJoined ? (
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleJoinEvent}
+                  disabled={eventStatus === 'Ended' || event.participants?.length >= event.maxParticipants}
+                  className={`px-6 py-2 rounded-lg cursor-pointer ${eventStatus === 'Ended' || event.participants?.length >= event.maxParticipants
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-700 hover:via-purple-700 hover:to-pink-600'
+                    } text-white transition-all shadow-md`}
+                >
+                  {event.participants?.length >= event.maxParticipants
+                    ? 'Event Full'
+                    : 'Join Event'}
+                </motion.button>
+              ) : (
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleLeaveEvent}
+                  className="px-6 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition-all shadow-md cursor-pointer"
+                >
+                  Leave Event
+                </motion.button>
+              )}
+            </div>
+
+            {participants && participants.length > 0 && (
+              <div className="mt-8">
+                <h3 className="text-2xl font-semibold text-gray-800 mb-4">Participants</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  {participants.map((participant: any) => (
+                    <motion.div
+                      key={participant._id}
+                      whileHover={{ scale: 1.02 }}
+                      className="flex items-center gap-3 p-3 bg-white/50 backdrop-blur-sm rounded-lg shadow-sm overflow-hidden"
+                    >
+                      <img
+                        src={participant.avatar || '/images/userM.png'}
+                        alt={participant.name}
+                        className="w-10 h-10 rounded-full border-2 border-white/50"
+                      />
+                      <span className="font-medium text-gray-800">{participant.name}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             )}
           </div>
-
-          {participants && participants.length > 0 && (
-            <div className="mt-6">
-              <h3 className="text-xl font-semibold mb-3">Participants</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-
-                {participants.map((participant: any) => (
-                  <div
-                    key={participant._id}
-                    className="min-w-40 flex flex-wrap items-center gap-2 p-2 bg-gray-100 rounded-md"
-                  >
-                    <img
-
-
-                      src={participant.avatar || 'https://res.cloudinary.com/dhka9aet3/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1739100300/dev1_gwoj0l.png'}
-                      alt={participant.name}
-                      className="w-8 h-8 rounded-full"
-                    />
-                    <span>{participant.name}</span>
-                  </div>
-
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
+        )}
+      </motion.div>
     </motion.div>
   );
 };
