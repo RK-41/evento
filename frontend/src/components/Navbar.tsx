@@ -41,7 +41,6 @@ const Navbar: React.FC = () => {
     >
       {/* Hamburger menu button - visible only on mobile */}
       <button
-
         title="Menu"
         className="lg:hidden absolute right-16 top-4 text-white z-20 cursor-pointer"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -73,7 +72,7 @@ const Navbar: React.FC = () => {
           absolute lg:relative
           top-12 lg:top-0
           left-0
-          w-full lg:w-auto max-w-80
+          w-full lg:w-auto
           lg:bg-transparent
           pb-4 lg:pb-0
           space-y-4 lg:space-y-0
