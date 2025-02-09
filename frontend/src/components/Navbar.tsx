@@ -37,10 +37,11 @@ const Navbar: React.FC = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 100 }}
-      className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 p-4 w-full fixed top-0 z-10 h-16"
+      className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 px-4 py-2 w-full fixed top-0 z-10 h-16"
     >
       {/* Hamburger menu button - visible only on mobile */}
       <button
+
         title="Menu"
         className="lg:hidden absolute right-16 top-4 text-white z-20 cursor-pointer"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -57,11 +58,13 @@ const Navbar: React.FC = () => {
       {/* Container for desktop layout */}
       <div className="max-w-7xl mx-auto flex items-center justify-between relative z-10">
         {/* Logo/Brand - always visible */}
-        <Link to="/" className="text-white text-xl font-bold hover:text-yellow-200 transition-colors">
-          Evento
-        </Link>
+        <div className="w-48">
+          <Link to="/" className="text-white text-xl font-bold hover:text-yellow-200 transition-colors">
+            Evento
+          </Link>
+        </div>
 
-        {/* Navigation items */}
+        {/* Navigation items - centered */}
         <ul className={`
           flex flex-col lg:flex-row items-center
           ${isMenuOpen ? 'flex' : 'hidden'} lg:flex
@@ -70,18 +73,19 @@ const Navbar: React.FC = () => {
           absolute lg:relative
           top-12 lg:top-0
           left-0
-          w-full lg:w-auto
+          w-full lg:w-auto max-w-80
           lg:bg-transparent
           pb-4 lg:pb-0
           space-y-4 lg:space-y-0
           lg:space-x-12
           rounded-b-lg
           px-4 lg:px-8
+          lg:flex-1
+          lg:justify-center
           ${isMenuOpen ? 'bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500' : 'bg-transparent'}
         `}>
-
           {navItems.map((item) => (
-            <li key={item.label} className="w-full lg:w-auto">
+            <li key={item.label} className="w-full lg:w-auto mx-auto max-w-40">
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
@@ -107,7 +111,7 @@ const Navbar: React.FC = () => {
               {user ? (
                 <div className="relative">
                   <div
-                    className="relative flex items-center gap-2 cursor-pointer text-white"
+                    className="relative flex items-center cursor-pointer text-white"
                     onClick={() => setShowDropdown(!showDropdown)}
                   >
                     <div className="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center">
@@ -153,8 +157,8 @@ const Navbar: React.FC = () => {
           </li>
         </ul>
 
-        {/* Desktop auth section */}
-        <div className="hidden lg:block">
+        {/* Desktop auth section - with fixed width */}
+        <div className="hidden lg:block w-48 text-right">
           <motion.div
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
@@ -162,7 +166,7 @@ const Navbar: React.FC = () => {
             {user ? (
               <div className="relative">
                 <div
-                  className="relative flex items-center gap-2 cursor-pointer"
+                  className="relative flex items-center justify-end cursor-pointer"
                   onMouseEnter={() => setShowDropdown(true)}
                   onMouseLeave={() => setShowDropdown(false)}
                 >
@@ -170,7 +174,6 @@ const Navbar: React.FC = () => {
                     {user.name?.charAt(0).toUpperCase()}
                   </div>
                   <span className="text-white hover:text-yellow-200 transition-colors block py-2 px-4 text-center text-lg font-medium">{user.name}</span>
-
 
                   {/* Dropdown menu */}
                   {showDropdown && (

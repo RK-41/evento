@@ -160,8 +160,8 @@ const Events = () => {
               <button
                 onClick={() => setSelectedCategory('all')}
                 className={`px-4 py-2 rounded-lg transition-all duration-300 ${selectedCategory === 'all'
-                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
-                    : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
+                  ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
+                  : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md cursor-pointer'
                   }`}
               >
                 All Categories
@@ -171,8 +171,8 @@ const Events = () => {
                   key={category}
                   onClick={() => setSelectedCategory(category)}
                   className={`px-4 py-2 rounded-lg transition-all duration-300 ${selectedCategory === category
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
-                      : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
+                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
+                    : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md cursor-pointer'
                     }`}
                 >
                   {category}
@@ -188,8 +188,8 @@ const Events = () => {
               <button
                 onClick={() => setSelectedStatus('all')}
                 className={`px-4 py-2 rounded-lg transition-all duration-300 ${selectedStatus === 'all'
-                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
-                    : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
+                  ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
+                  : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md cursor-pointer'
                   }`}
               >
                 All Statuses
@@ -199,8 +199,8 @@ const Events = () => {
                   key={status}
                   onClick={() => setSelectedStatus(status)}
                   className={`px-4 py-2 rounded-lg transition-all duration-300 ${selectedStatus === status
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
-                      : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
+                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
+                    : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md cursor-pointer'
                     }`}
                 >
                   {status}
