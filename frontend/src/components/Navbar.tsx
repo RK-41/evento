@@ -63,7 +63,7 @@ const Navbar: React.FC = () => {
           </Link>
         </div>
 
-        {/* Navigation items - centered */}
+        {/* Navigation items */}
         <ul className={`
           flex flex-col lg:flex-row items-center
           ${isMenuOpen ? 'flex' : 'hidden'} lg:flex
@@ -172,7 +172,9 @@ const Navbar: React.FC = () => {
                   <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white">
                     {user.name?.charAt(0).toUpperCase()}
                   </div>
-                  <span className="text-white hover:text-yellow-200 transition-colors block py-2 px-4 text-center text-lg font-medium">{user.name}</span>
+                  <span className="text-white hover:text-yellow-200 transition-colors block py-2 px-4 text-center text-lg font-medium">
+                    {user.name.split(/[ _]/)[0]}
+                  </span>
 
                   {/* Dropdown menu */}
                   {showDropdown && (
