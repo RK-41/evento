@@ -2,25 +2,35 @@
 
 ## Overview
 
-Evento is a modern, real-time event management platform built with the MERN stack (MongoDB, Express.js, React, Node.js) and Socket.IO for real-time features. It enables users to create, manage, and participate in various events while providing real-time updates and interactions.
+Evento is a modern, real-time event management platform built with the MERN stack (MongoDB, Express.js, React, Node.js) and Socket.IO for real-time features. It enables users to create, manage, and participate in various events while providing real-time updates.
 
 ## Features
 
 ### Core Features
 
 - 🎫 Create and manage events with detailed information
-- 👥 Real-time participant management
+- 👥 Real-time participant updates
 - 🔄 Live event status updates
 - 📊 Dynamic event categorization
 - 🖼️ Image upload support via Cloudinary
 - 🔐 User authentication and authorization
 - 📱 Responsive design for all devices
+- 🔔 Push notifications for event updates
+  <!-- - 📍 Location-based event discovery -->
+  <!-- - 💬 Real-time chat for event participants -->
+  <!-- - 📅 Calendar integration -->
+  <!-- - 🎨 Customizable event pages -->
 
 ### Event Categories
 
 - Conference
 - Workshop
 - Social
+<!-- - Webinar
+- Meetup
+- Concert
+- Exhibition
+- Sports -->
 - Other
 
 ### Event Statuses
@@ -28,6 +38,8 @@ Evento is a modern, real-time event management platform built with the MERN stac
 - Upcoming
 - Live
 - Ended
+  <!-- - Cancelled -->
+  <!-- - Postponed -->
 
 ## Tech Stack
 
@@ -35,12 +47,12 @@ Evento is a modern, real-time event management platform built with the MERN stac
 
 - React with TypeScript
 - Vite for build tooling
+- Axios for API requests
+- Zod for form validation
+- React Router for navigation
+- Socket.IO Client for real-time features
 - Framer Motion for animations
 - TailwindCSS for styling
-- Socket.IO Client for real-time features
-- React Router for navigation
-- Zod for form validation
-- Axios for API requests
 
 ### Backend
 
