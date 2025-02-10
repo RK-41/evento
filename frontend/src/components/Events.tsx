@@ -164,7 +164,7 @@ const Events = () => {
                   : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md cursor-pointer'
                   }`}
               >
-                All Categories
+                All
               </button>
               {categories.map(category => (
                 <button
@@ -192,7 +192,7 @@ const Events = () => {
                   : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md cursor-pointer'
                   }`}
               >
-                All Statuses
+                All
               </button>
               {statuses.map(status => (
                 <button
