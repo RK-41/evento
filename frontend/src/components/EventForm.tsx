@@ -75,7 +75,12 @@ const EventForm = () => {
         ...data,
         date: new Date(data.date),
         imageUrl: imageUrl,
-        organizer: user?._id,
+        organizer: {
+          _id: user?._id,
+          name: user?.name,
+          email: user?.email,
+          avatar: user?.avatar || ""
+        },
       };
 
       // Create event

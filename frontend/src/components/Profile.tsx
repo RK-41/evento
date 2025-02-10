@@ -63,7 +63,7 @@ const Profile: React.FC = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen bg-gradient-to-r from-indigo-600/10 via-purple-600/10 to-pink-500/10 py-12 px-4 sm:px-6 lg:px-8"
+      className="min-h-screen w-full bg-gradient-to-r from-indigo-600/10 via-purple-600/10 to-pink-500/10 py-12 px-4 sm:px-6 lg:px-8"
     >
       <div className="max-w-3xl mx-auto">
         <motion.h1
@@ -152,39 +152,40 @@ const Profile: React.FC = () => {
             )}
           </div>
         </motion.div>
-
-        {/* Events Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-          className="mt-12"
-        >
-          <h2 className="text-3xl font-semibold text-gray-800 mb-6 text-center">
-            Events Created by You
-          </h2>
-          <div className="grid gap-6 md:grid-cols-2">
-            {events.length > 0 ? (
-              events.map((event) => (
-                <motion.div
-                  key={event._id}
-                  variants={item}
-                  whileHover={{ scale: 1.02 }}
-                  onClick={() => navigate(`/events/${event._id}`)}
-                  className="cursor-pointer transform transition-all duration-300 hover:translate-y-[-4px]"
-                >
-                  <EventCard event={event} />
-                </motion.div>
-              ))
-
-            ) : (
-              <p className="text-gray-600 col-span-2 text-center py-8 bg-white/10 backdrop-blur-lg rounded-xl">
-                You haven't created any events yet.
-              </p>
-            )}
-          </div>
-        </motion.div>
       </div>
+
+      {/* Events Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.7 }}
+        className="mt-12 w-full"
+      >
+        <h2 className="text-3xl font-semibold text-gray-800 mb-6 text-center">
+          Events Created by You
+        </h2>
+        <div className="flex flex-wrap justify-center gap-4">
+          {events.length > 0 ? (
+            events.map((event) => (
+              <motion.div
+
+                key={event._id}
+                variants={item}
+                whileHover={{ scale: 1.02 }}
+                onClick={() => navigate(`/events/${event._id}`)}
+                className="cursor-pointer transform transition-all duration-300 hover:translate-y-[-4px]"
+              >
+                <EventCard event={event} />
+              </motion.div>
+            ))
+
+          ) : (
+            <p className="text-gray-600 col-span-2 text-center py-8 bg-white/10 backdrop-blur-lg rounded-xl">
+              You haven't created any events yet.
+            </p>
+          )}
+        </div>
+      </motion.div>
 
       <Dialog
         open={isEditProfileOpen}
