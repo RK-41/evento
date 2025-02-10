@@ -22,7 +22,7 @@ const Profile: React.FC = () => {
         try {
           const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/${user._id}`);
           const data = response.data;
-          console.log(data);
+
           if (data.createdEvents) {
             setEvents(data.createdEvents);
           }
