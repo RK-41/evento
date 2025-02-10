@@ -122,14 +122,6 @@ const Events = () => {
     show: { y: 0, opacity: 1 }
   };
 
-  if (loading) {
-    return (
-      <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-600/10 via-purple-600/10 to-pink-500/10">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-indigo-600"></div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen w-full bg-gradient-to-r from-indigo-600/10 via-purple-600/10 to-pink-500/10 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -159,9 +151,9 @@ const Events = () => {
             <div className="flex flex-wrap justify-center gap-2">
               <button
                 onClick={() => setSelectedCategory('all')}
-                className={`px-4 py-2 rounded-lg transition-all duration-300 ${selectedCategory === 'all'
+                className={`px-4 py-2 rounded-lg transition-all duration-300 cursor-pointer ${selectedCategory === 'all'
                   ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
-                  : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md cursor-pointer'
+                  : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
                   }`}
               >
                 All
@@ -170,9 +162,9 @@ const Events = () => {
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-lg transition-all duration-300 ${selectedCategory === category
+                  className={`px-4 py-2 rounded-lg transition-all duration-300 cursor-pointer ${selectedCategory === category
                     ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
-                    : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md cursor-pointer'
+                    : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
                     }`}
                 >
                   {category}
@@ -187,9 +179,9 @@ const Events = () => {
             <div className="flex flex-wrap justify-center gap-2">
               <button
                 onClick={() => setSelectedStatus('all')}
-                className={`px-4 py-2 rounded-lg transition-all duration-300 ${selectedStatus === 'all'
+                className={`px-4 py-2 rounded-lg transition-all duration-300 cursor-pointer ${selectedStatus === 'all'
                   ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
-                  : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md cursor-pointer'
+                  : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
                   }`}
               >
                 All
@@ -198,9 +190,9 @@ const Events = () => {
                 <button
                   key={status}
                   onClick={() => setSelectedStatus(status)}
-                  className={`px-4 py-2 rounded-lg transition-all duration-300 ${selectedStatus === status
+                  className={`px-4 py-2 rounded-lg transition-all duration-300 cursor-pointer ${selectedStatus === status
                     ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
-                    : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md cursor-pointer'
+                    : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
                     }`}
                 >
                   {status}
@@ -210,37 +202,47 @@ const Events = () => {
           </div>
         </motion.div>
 
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate="show"
-          // className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"
-          className='flex flex-wrap justify-center gap-6 mt-8'
-        >
-          {filteredEvents.map((event) => (
+        {loading ? (
+          <div className="flex justify-center items-center py-30  bg-white/10 backdrop-blur-lg rounded-xl shadow-lg">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-indigo-600"></div>
+          </div>
+        ) : (
+          <>
+            {/* Events Section */}
             <motion.div
-              key={event._id}
-              variants={item}
-              whileHover={{ scale: 1.02 }}
-              onClick={() => navigate(`/events/${event._id}`)}
-              className="cursor-pointer transform transition-all duration-300 hover:translate-y-[-4px]"
+              variants={container}
+              initial="hidden"
+              animate="show"
+              className='flex flex-wrap justify-center gap-6 mt-8'
             >
-              <EventCard key={event._id} event={event} />
+              {filteredEvents.map((event) => (
+                <motion.div
+                  key={event._id}
+                  variants={item}
+                  whileHover={{ scale: 1.02 }}
+                  onClick={() => navigate(`/events/${event._id}`)}
+                  className="cursor-pointer transform transition-all duration-300 hover:translate-y-[-4px]"
+                >
+                  <EventCard key={event._id} event={event} />
+                </motion.div>
+              ))}
             </motion.div>
-          ))}
-        </motion.div>
 
-        {filteredEvents.length === 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="text-center py-32 bg-white/10 backdrop-blur-lg rounded-xl shadow-lg"
-          >
-            <h3 className="text-xl text-gray-600">No events found</h3>
-            <p className="text-gray-500 mt-2">Try adjusting your filters</p>
-          </motion.div>
-        )}
+            {filteredEvents.length === 0 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+                className="text-center py-32 bg-white/10 backdrop-blur-lg rounded-xl shadow-lg"
+              >
+                <h3 className="text-xl text-gray-600">No events found</h3>
+
+                {selectedCategory !== 'all' || selectedStatus !== 'all' && (
+                  <p className="text-gray-500 mt-2">Try adjusting your filters</p>
+                )}
+              </motion.div>
+            )}
+          </>)}
       </div>
     </div>
   );

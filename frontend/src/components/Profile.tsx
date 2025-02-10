@@ -9,7 +9,7 @@ import { Dialog } from '@headlessui/react';
 import { toast } from 'react-hot-toast';
 
 const Profile: React.FC = () => {
-  const { user, setUser } = useAuth();
+  const { user, setUser, logout } = useAuth();
   const navigate = useNavigate();
   const [events, setEvents] = useState<any[]>([]);
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
@@ -139,7 +139,7 @@ const Profile: React.FC = () => {
                   <h2 className="text-2xl font-semibold text-gray-800 mb-4">
                     Account Settings
                   </h2>
-                  <div className="flex gap-4">
+                  <div className="flex flex-col gap-4">
                     <motion.button
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.95 }}
@@ -148,13 +148,17 @@ const Profile: React.FC = () => {
                     >
                       Edit Profile
                     </motion.button>
-                    {/* <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-all shadow-md"
-                  >
-                    Change Password
-                  </motion.button> */}
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => {
+                        logout();
+                        navigate('/');
+                      }}
+                      className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all shadow-md cursor-pointer"
+                    >
+                      Logout
+                    </motion.button>
                   </div>
                 </motion.div>
               )}
