@@ -10,12 +10,42 @@ import { AuthProvider } from './context/AuthContext';
 import Login from './components/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './components/Profile';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
     <AuthProvider>
       <SocketProvider>
         <Router future={{ v7_relativeSplatPath: true }}>
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              style: {
+                background: 'rgba(255, 255, 255, 0.9)',
+                backdropFilter: 'blur(8px)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                color: '#1F2937',
+              },
+              success: {
+                iconTheme: {
+                  primary: '#6366F1',
+                  secondary: 'white',
+                },
+              },
+              error: {
+                iconTheme: {
+                  primary: '#EF4444',
+                  secondary: 'white',
+                },
+              },
+            }}
+            gutter={8}
+            containerStyle={{
+              top: 48,
+            }}
+            containerClassName="toast-container"
+            reverseOrder={false}
+          />
           <Navbar />
           <AnimatePresence mode="wait">
             <div className="pt-8">

@@ -3,7 +3,7 @@ export const SOCKET_EVENTS = {
 	LEAVE_ROOM: 'leave-room',
 	EVENT_UPDATED: 'event-updated',
 	PARTICIPANTS_UPDATED: 'participants-updated',
-	JOIN_EVENT: 'join-event',
-	LEAVE_EVENT: 'leave-event',
 	EVENT_DELETED: 'event-deleted',
+	USER_JOINED_EVENT: 'user-joined-event',
+	USER_LEFT_EVENT: 'user-left-event',
 } as const;

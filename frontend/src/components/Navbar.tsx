@@ -9,7 +9,6 @@ interface NavItem {
   onClick?: () => void;
 }
 
-
 const Navbar: React.FC = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -42,7 +41,7 @@ const Navbar: React.FC = () => {
       {/* Hamburger menu button - visible only on mobile */}
       <button
         title="Menu"
-        className="lg:hidden absolute right-8 top-5 text-white z-20 cursor-pointer"
+        className="md:hidden absolute right-8 top-5 text-white z-20 cursor-pointer"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -55,7 +54,7 @@ const Navbar: React.FC = () => {
       </button>
 
       {/* Container for desktop layout */}
-      <div className="max-w-7xl mx-auto h-full flex items-center justify-between relative z-10">
+      <div className="max-w-full mx-auto h-full flex items-center justify-between relative z-10">
         {/* Logo/Brand - always visible */}
         <div className="w-48">
           <Link to="/" className="text-white text-xl font-bold hover:text-yellow-200 transition-colors">
@@ -65,30 +64,30 @@ const Navbar: React.FC = () => {
 
         {/* Navigation items */}
         <ul className={`
-          flex flex-col lg:flex-row items-center
-          ${isMenuOpen ? 'flex' : 'hidden'} lg:flex
-          lg:items-center
+          flex flex-col md:flex-row items-center
+          ${isMenuOpen ? 'flex' : 'hidden'} md:flex
+          md:items-center
           text-white
-          absolute lg:relative
-          top-12 lg:top-0
+          absolute md:relative
+          top-14 md:top-0
           left-0
-          w-full lg:w-auto
-          lg:bg-transparent
-          pb-4 lg:pb-0
-          space-y-4 lg:space-y-0
-          lg:space-x-12
+          w-full md:w-auto md:max-w-80
+          md:bg-transparent
+          pb-4 md:pb-0
+          
+          md:space-x-12
           rounded-b-lg
-          px-4 lg:px-8
-          lg:flex-1
-          lg:justify-center
+          px-4 md:px-8
+          md:flex-1
+          md:justify-center
           ${isMenuOpen ? 'bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500' : 'bg-transparent'}
         `}>
           {navItems.map((item) => (
-            <li key={item.label} className="w-full lg:w-auto mx-auto max-w-40">
+            <li key={item.label} className="w-full md:w-auto mx-auto md:max-w-40">
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full lg:w-auto"
+                className="w-full md:w-auto"
               >
                 <Link
                   to={item.path!}
@@ -102,7 +101,7 @@ const Navbar: React.FC = () => {
           ))}
 
           {/* Mobile auth section */}
-          <li className="lg:hidden w-full flex justify-center">
+          <li className="md:hidden w-full flex justify-center">
             <motion.div
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
@@ -113,16 +112,20 @@ const Navbar: React.FC = () => {
                     className="relative flex items-center cursor-pointer text-white"
                     onClick={() => setShowDropdown(!showDropdown)}
                   >
-                    <div className="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center">
-                      {user.name?.charAt(0).toUpperCase()}
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center overflow-hidden">
+                      <img
+                        src={user.avatar || '/images/userM.png'}
+                        alt={user.name}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
-                    <span className="hover:text-yellow-200 transition-colors block py-2 px-4 text-center text-lg font-medium">
+                    <span className="hover:text-yellow-200 transition-colors block p-2 text-center text-lg font-medium">
                       {user.name}
                     </span>
 
                     {/* Dropdown menu */}
                     {showDropdown && (
-                      <div className="absolute -right-4 top-full w-32 bg-gradient-to-r from-indigo-600/95 via-purple-600/95 to-pink-500/95 rounded-md shadow-xl z-20 text-center border border-white/20">
+                      <div className="absolute left-8 top-full w-32 bg-gradient-to-r from-indigo-600/95 via-purple-600/95 to-pink-500/95 rounded-md shadow-xl z-20 text-center border border-white/20">
                         <Link
                           to="/profile"
                           className="block px-4 py-2 text-white hover:bg-white/20 rounded-t-md transition-colors"
@@ -146,7 +149,7 @@ const Navbar: React.FC = () => {
               ) : (
                 <Link
                   to="/login"
-                  className="hover:text-yellow-200 transition-colors block py-2 px-4 text-center text-lg font-medium"
+                  className="w-full hover:text-yellow-200 transition-colors block py-2 text-center text-lg font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Login
@@ -156,8 +159,8 @@ const Navbar: React.FC = () => {
           </li>
         </ul>
 
-        {/* Desktop auth section - with fixed width */}
-        <div className="hidden lg:block w-48 text-right">
+        {/* Desktop auth section */}
+        <div className="hidden md:block w-48 text-right">
           <motion.div
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
@@ -169,10 +172,14 @@ const Navbar: React.FC = () => {
                   onMouseEnter={() => setShowDropdown(true)}
                   onMouseLeave={() => setShowDropdown(false)}
                 >
-                  <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white">
-                    {user.name?.charAt(0).toUpperCase()}
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center overflow-hidden">
+                    <img
+                      src={user.avatar || '/images/userM.png'}
+                      alt={user.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  <span className="text-white hover:text-yellow-200 transition-colors block py-2 px-4 text-center text-lg font-medium">
+                  <span className="text-white hover:text-yellow-200 transition-colors block p-2 text-center text-lg font-medium">
                     {user.name.split(/[ _]/)[0]}
                   </span>
 
@@ -202,7 +209,7 @@ const Navbar: React.FC = () => {
             ) : (
               <Link
                 to="/login"
-                className="text-white hover:text-yellow-200 transition-colors block py-2 px-4 text-center text-lg font-medium"
+                className="text-white hover:text-yellow-200 transition-colors block py-2 text-right text-lg font-medium"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Login

@@ -12,6 +12,7 @@ import EventActions from './event/EventActions';
 import EventInfo from './event/EventInfo';
 import ParticipantsList from './event/ParticipantsList';
 import React from 'react';
+import { toast } from 'react-hot-toast';
 
 // Memoize child components at the top of the file, before the main component
 const MemoizedEventHeader = React.memo(EventHeader);
@@ -92,13 +93,34 @@ const EventDetails = () => {
       setParticipants(updatedParticipants);
     });
 
+    // Add listeners for user join/leave events
+    socket.on(SOCKET_EVENTS.USER_JOINED_EVENT, ({ user: joinedUser }) => {
+      toast.dismiss();
+      if (joinedUser._id !== user?._id) {
+        toast.success(`${joinedUser.name} joined the event!`);
+      } else {
+        toast.success(`You joined the event!`);
+      }
+    });
+
+    socket.on(SOCKET_EVENTS.USER_LEFT_EVENT, ({ user: leftUser }) => {
+      toast.dismiss();
+      if (leftUser._id !== user?._id) {
+        toast.success(`${leftUser.name} left the event`);
+      } else {
+        toast.success(`You left the event`);
+      }
+    });
+
     // Cleanup
     return () => {
       socket.emit(SOCKET_EVENTS.LEAVE_ROOM, id);
       socket.off(SOCKET_EVENTS.EVENT_UPDATED);
       socket.off(SOCKET_EVENTS.PARTICIPANTS_UPDATED);
+      socket.off(SOCKET_EVENTS.USER_JOINED_EVENT);
+      socket.off(SOCKET_EVENTS.USER_LEFT_EVENT);
     };
-  }, [socket, id]);
+  }, [socket, id, user?._id]);
 
   // Memoize handlers
   const handleJoinEvent = useCallback(async () => {
@@ -120,9 +142,21 @@ const EventDetails = () => {
         ...response.data,
         organizer: prevEvent?.organizer
       }));
-      socket?.emit(SOCKET_EVENTS.JOIN_EVENT, { eventId: id, event: response.data });
+      socket?.emit(SOCKET_EVENTS.USER_JOINED_EVENT, {
+        eventId: id,
+        user: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          avatar: user.avatar
+        }
+      });
+      toast.dismiss();
+      toast.success('You joined the event!');
     } catch (error) {
       console.error('Error joining event:', error);
+      toast.dismiss();
+      toast.error('Failed to join event');
     }
   }, [user, navigate, id, socket]);
 
@@ -140,9 +174,21 @@ const EventDetails = () => {
         ...response.data,
         organizer: prevEvent?.organizer
       }));
-      socket?.emit(SOCKET_EVENTS.LEAVE_EVENT, { eventId: id, event: response.data });
+      socket?.emit(SOCKET_EVENTS.USER_LEFT_EVENT, {
+        eventId: id,
+        user: {
+          _id: user?._id,
+          name: user?.name,
+          email: user?.email,
+          avatar: user?.avatar
+        }
+      });
+      toast.dismiss();
+      toast.success('You left the event');
     } catch (error) {
       console.error('Error leaving event:', error);
+      toast.dismiss();
+      toast.error('Failed to leave event');
     }
   }, [user, id, socket]);
 
@@ -155,16 +201,16 @@ const EventDetails = () => {
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
 
-      // Emit socket event to notify other users
       socket?.emit(SOCKET_EVENTS.EVENT_DELETED, id);
-
-      // Redirect to events page
       navigate('/profile');
+      toast.dismiss();
+      toast.success('Event deleted successfully');
     } catch (error) {
       console.error('Error deleting event:', error);
+      toast.dismiss();
+      toast.error('Failed to delete event');
       setError('Failed to delete event');
     }
-
   }, [user, event, id, socket, navigate]);
 
   useEffect(() => {
@@ -225,44 +271,46 @@ const EventDetails = () => {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-screen w-full bg-gradient-to-r from-indigo-600/10 via-purple-600/10 to-pink-500/10 py-12 px-4 sm:px-6 lg:px-8"
-    >
+    <>
       <motion.div
-        initial={{ y: 20 }}
-        animate={{ y: 0 }}
-        className="max-w-3xl mx-auto bg-white/10 backdrop-blur-lg rounded-xl shadow-xl p-8"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.5 }}
+        className="min-h-screen w-full bg-gradient-to-r from-indigo-600/10 via-purple-600/10 to-pink-500/10 py-12 px-4 sm:px-6 lg:px-8"
       >
-        <MemoizedEventHeader event={event} />
+        <motion.div
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
+          className="max-w-3xl mx-auto bg-white/10 backdrop-blur-lg rounded-xl shadow-xl p-8"
+        >
+          <MemoizedEventHeader event={event} />
 
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <MemoizedEventActions
-              event={event}
-              eventStatus={eventStatus}
-              isJoined={isJoined}
-              user={user}
-              onJoin={handleJoinEvent}
-              onLeave={handleLeaveEvent}
-              onDelete={handleDeleteEvent}
-            />
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <MemoizedEventActions
+                event={event}
+                eventStatus={eventStatus}
+                isJoined={isJoined}
+                user={user}
+                onJoin={handleJoinEvent}
+                onLeave={handleLeaveEvent}
+                onDelete={handleDeleteEvent}
+              />
+            </div>
+
+            <MemoizedEventInfo event={event} />
+
+            {event && (
+              <MemoizedParticipantsList
+                event={event}
+                participants={participants}
+              />
+            )}
           </div>
-
-          <MemoizedEventInfo event={event} />
-
-          {event && (
-            <MemoizedParticipantsList
-              event={event}
-              participants={participants}
-            />
-          )}
-        </div>
+        </motion.div>
       </motion.div>
-    </motion.div>
+    </>
   );
 };
 

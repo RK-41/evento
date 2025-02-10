@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Dialog } from '@headlessui/react';
+import { toast } from 'react-hot-toast';
 
 const Profile: React.FC = () => {
   const { user, setUser } = useAuth();
@@ -53,8 +54,10 @@ const Profile: React.FC = () => {
       setUser(response.data);
       setIsEditProfileOpen(false);
       setNameError('');
+      toast.success('Profile updated successfully!');
     } catch (error) {
       console.error('Error updating profile:', error);
+      toast.error('Failed to update profile');
     }
   };
 
@@ -89,67 +92,73 @@ const Profile: React.FC = () => {
               transition={{ delay: 0.4 }}
               className="flex justify-center"
             >
-              <div className="w-24 h-24 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-lg">
-                {user?.name?.charAt(0).toUpperCase()}
+              <div className="w-24 h-24 rounded-full flex items-center justify-center overflow-hidden">
+                <img
+                  src={user?.avatar || '/images/userM.png'}
+                  alt={user?.name}
+                  className="w-full h-full object-cover"
+                />
               </div>
             </motion.div>
 
-            {/* Personal Information */}
-            <motion.div
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="space-y-4"
-            >
-              <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                Personal Information
-              </h2>
-              <div className="space-y-3">
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                  <span className="font-semibold text-gray-700 min-w-[100px]">Name:</span>
-                  <span className="bg-white/50 backdrop-blur-sm rounded-lg px-4 py-2">
-                    {user?.name || 'Not available'}
-                  </span>
-                </div>
-                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                  <span className="font-semibold text-gray-700 min-w-[100px]">Email:</span>
-                  <span className="bg-white/50 backdrop-blur-sm rounded-lg px-4 py-2">
-                    {user?.email || 'Not available'}
-                  </span>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Account Settings */}
-            {!user?.isGuest && (
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+              {/* Personal Information */}
               <motion.div
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.6 }}
+                transition={{ delay: 0.5 }}
                 className="space-y-4"
               >
                 <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                  Account Settings
+                  Personal Information
                 </h2>
-                <div className="flex gap-4">
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setIsEditProfileOpen(true)}
-                    className="px-6 py-2 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white rounded-lg hover:from-indigo-700 hover:via-purple-700 hover:to-pink-600 transition-all shadow-md cursor-pointer"
-                  >
-                    Edit Profile
-                  </motion.button>
-                  {/* <motion.button
+                <div className="space-y-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                    <span className="font-semibold text-gray-700 min-w-[100px]">Name:</span>
+                    <span className="bg-white/50 backdrop-blur-sm rounded-lg px-4 py-2">
+                      {user?.name || 'Not available'}
+                    </span>
+                  </div>
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                    <span className="font-semibold text-gray-700 min-w-[100px]">Email:</span>
+                    <span className="bg-white/50 backdrop-blur-sm rounded-lg px-4 py-2">
+                      {user?.email || 'Not available'}
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Account Settings */}
+              {!user?.isGuest && (
+                <motion.div
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.6 }}
+                  className="space-y-4"
+                >
+                  <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+                    Account Settings
+                  </h2>
+                  <div className="flex gap-4">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => setIsEditProfileOpen(true)}
+                      className="px-6 py-2 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white rounded-lg hover:from-indigo-700 hover:via-purple-700 hover:to-pink-600 transition-all shadow-md cursor-pointer"
+                    >
+                      Edit Profile
+                    </motion.button>
+                    {/* <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.95 }}
                     className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-all shadow-md"
                   >
                     Change Password
                   </motion.button> */}
-                </div>
-              </motion.div>
-            )}
+                  </div>
+                </motion.div>
+              )}
+            </div>
           </div>
         </motion.div>
       </div>
@@ -168,7 +177,6 @@ const Profile: React.FC = () => {
           {events.length > 0 ? (
             events.map((event) => (
               <motion.div
-
                 key={event._id}
                 variants={item}
                 whileHover={{ scale: 1.02 }}
@@ -178,7 +186,6 @@ const Profile: React.FC = () => {
                 <EventCard event={event} />
               </motion.div>
             ))
-
           ) : (
             <p className="text-gray-600 col-span-2 text-center py-8 bg-white/10 backdrop-blur-lg rounded-xl">
               You haven't created any events yet.

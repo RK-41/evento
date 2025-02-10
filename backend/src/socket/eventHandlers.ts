@@ -29,8 +29,8 @@ const eventHandlers = (io: Server) => {
 			socket.to(`event:${eventId}`).emit(SOCKET_EVENTS.EVENT_UPDATED, event);
 		});
 
-		// Handle join event
-		socket.on(SOCKET_EVENTS.JOIN_EVENT, async ({ eventId, event }) => {
+		// Handle user joined event
+		socket.on(SOCKET_EVENTS.USER_JOINED_EVENT, async ({ eventId, user }) => {
 			try {
 				const updatedEvent = await Event.findById(eventId)
 					.populate('participants', 'name email avatar')
@@ -45,13 +45,17 @@ const eventHandlers = (io: Server) => {
 					SOCKET_EVENTS.PARTICIPANTS_UPDATED,
 					updatedEvent.participants
 				);
+				io.to(`event:${eventId}`).emit(SOCKET_EVENTS.USER_JOINED_EVENT, {
+					user,
+					eventId,
+				});
 			} catch (error) {
-				console.error('Error handling join event:', error);
+				console.error('Error handling user joined event:', error);
 			}
 		});
 
-		// Handle leave event
-		socket.on(SOCKET_EVENTS.LEAVE_EVENT, async ({ eventId, event }) => {
+		// Handle user left event
+		socket.on(SOCKET_EVENTS.USER_LEFT_EVENT, async ({ eventId, user }) => {
 			try {
 				const updatedEvent = await Event.findById(eventId)
 					.populate('participants', 'name email avatar')
@@ -66,8 +70,12 @@ const eventHandlers = (io: Server) => {
 					SOCKET_EVENTS.PARTICIPANTS_UPDATED,
 					updatedEvent.participants
 				);
+				io.to(`event:${eventId}`).emit(SOCKET_EVENTS.USER_LEFT_EVENT, {
+					user,
+					eventId,
+				});
 			} catch (error) {
-				console.error('Error handling leave event:', error);
+				console.error('Error handling user left event:', error);
 			}
 		});
 

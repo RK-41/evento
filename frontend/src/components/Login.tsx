@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { motion } from 'framer-motion';
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -22,13 +23,17 @@ const Login = () => {
     try {
       if (isLogin) {
         await login(formData.email, formData.password);
+        toast.success('Successfully logged in!');
       } else {
         await register(formData.name, formData.email, formData.password);
+        toast.success('Account created successfully!');
       }
       const origin = location.state?.from || '/';
       navigate(origin, { replace: true });
     } catch (err: any) {
-      setError(err.response?.data?.message || 'An error occurred');
+      const errorMessage = err.response?.data?.message || 'An error occurred';
+      toast.error(errorMessage);
+      setError(errorMessage);
     }
   };
 
@@ -36,14 +41,15 @@ const Login = () => {
     try {
       setError(null);
       await guestLogin();
+      toast.success('Logged in as guest');
+
       const origin = location.state?.from || '/';
       navigate(origin, { replace: true });
     } catch (err: any) {
       console.error('Guest login error:', err);
-      setError(
-        err.response?.data?.message ||
-        'Unable to continue as guest. Please try again.'
-      );
+      const errorMessage = err.response?.data?.message || 'Unable to continue as guest. Please try again.';
+      toast.error(errorMessage);
+      setError(errorMessage);
     }
   };
 
