@@ -151,8 +151,8 @@ const EventDetails = () => {
           avatar: user.avatar
         }
       });
-      toast.dismiss();
-      toast.success('You joined the event!');
+      // toast.dismiss();
+      // toast.success('You joined the event!');
     } catch (error) {
       console.error('Error joining event:', error);
       toast.dismiss();
@@ -183,13 +183,14 @@ const EventDetails = () => {
           avatar: user?.avatar
         }
       });
-      toast.dismiss();
-      toast.success('You left the event');
+      // toast.dismiss();
+      // toast.success('You left the event');
     } catch (error) {
       console.error('Error leaving event:', error);
       toast.dismiss();
       toast.error('Failed to leave event');
     }
+
   }, [user, id, socket]);
 
   const handleDeleteEvent = useCallback(async () => {
