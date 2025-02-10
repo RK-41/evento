@@ -18,7 +18,7 @@ function App() {
         <Router future={{ v7_relativeSplatPath: true }}>
           <Navbar />
           <AnimatePresence mode="wait">
-            <div className="pt-16">
+            <div className="pt-8">
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route

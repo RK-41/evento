@@ -5,4 +5,5 @@ export const SOCKET_EVENTS = {
 	PARTICIPANTS_UPDATED: 'participants-updated',
 	JOIN_EVENT: 'join-event',
 	LEAVE_EVENT: 'leave-event',
+	EVENT_DELETED: 'event-deleted',
 } as const;

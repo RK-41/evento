@@ -123,6 +123,27 @@ const EventDetails = () => {
     }
   };
 
+  const handleDeleteEvent = async () => {
+    if (!user || !event) return;
+
+    try {
+      await axios.delete(
+        `${import.meta.env.VITE_API_URL}/api/users/${user._id}/events/${id}`,
+        { headers: { Authorization: `Bearer ${user.token}` } }
+      );
+
+      // Emit socket event to notify other users
+      socket?.emit(SOCKET_EVENTS.EVENT_DELETED, id);
+
+      // Redirect to events page
+      navigate('/profile');
+    } catch (error) {
+      console.error('Error deleting event:', error);
+      setError('Failed to delete event');
+    }
+
+  };
+
   useEffect(() => {
     if (event) {
       const newStatus = calculateEventStatus(event.date);
@@ -156,6 +177,21 @@ const EventDetails = () => {
       }
     }
   }, [event?.date, id, user?.token, socket]);
+
+  // Add this effect to listen for event deletion
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on(SOCKET_EVENTS.EVENT_DELETED, (deletedEventId: string) => {
+      if (deletedEventId === id) {
+        navigate('/events');
+      }
+    });
+
+    return () => {
+      socket.off(SOCKET_EVENTS.EVENT_DELETED);
+    };
+  }, [socket, id, navigate]);
 
   if (error) {
     return <p className="text-red-500">{error}</p>;
@@ -196,13 +232,55 @@ const EventDetails = () => {
         </motion.h1>
 
         <div className="space-y-4">
-          <p className={`text-lg font-semibold px-4 py-1 rounded-full inline-block
-            ${eventStatus === 'Live' ? 'bg-green-500/20 text-green-700' :
-              eventStatus === 'Upcoming' ? 'bg-blue-500/20 text-blue-700' :
-                'bg-red-500/20 text-red-700'}`}
-          >
-            {eventStatus}
-          </p>
+          <div className="flex items-center justify-between">
+            <p className={`text-lg font-semibold px-4 py-1 rounded-full inline-block
+              ${eventStatus === 'Live' ? 'bg-green-500/20 text-green-700' :
+                eventStatus === 'Upcoming' ? 'bg-blue-500/20 text-blue-700' :
+                  'bg-red-500/20 text-red-700'}`}
+            >
+              {eventStatus}
+            </p>
+
+            <div className="flex gap-2">
+              {/* Show delete button only to organizer */}
+              {user?._id === event.organizer?._id && (
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleDeleteEvent}
+                  className="px-6 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition-all shadow-md cursor-pointer"
+                >
+                  Delete Event
+                </motion.button>
+              )}
+
+              {!isJoined ? (
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleJoinEvent}
+                  disabled={eventStatus === 'Ended' || event.participants?.length >= event.maxParticipants}
+                  className={`px-6 py-2 rounded-lg cursor-pointer ${eventStatus === 'Ended' || event.participants?.length >= event.maxParticipants
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-700 hover:via-purple-700 hover:to-pink-600'
+                    } text-white transition-all shadow-md`}
+                >
+                  {event.participants?.length >= event.maxParticipants
+                    ? 'Event Full'
+                    : 'Join Event'}
+                </motion.button>
+              ) : (
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleLeaveEvent}
+                  className="px-6 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition-all shadow-md cursor-pointer"
+                >
+                  Leave Event
+                </motion.button>
+              )}
+            </div>
+          </div>
 
           <div className="space-y-3 text-gray-700">
             <p className="flex items-center gap-2">
@@ -236,36 +314,10 @@ const EventDetails = () => {
 
         {event && (
           <div className="mt-8 space-y-6">
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col gap-4">
               <p className="text-lg font-medium text-gray-800">
                 Participants: {event.participants?.length || 0} / {event.maxParticipants}
               </p>
-
-              {!isJoined ? (
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handleJoinEvent}
-                  disabled={eventStatus === 'Ended' || event.participants?.length >= event.maxParticipants}
-                  className={`px-6 py-2 rounded-lg cursor-pointer ${eventStatus === 'Ended' || event.participants?.length >= event.maxParticipants
-                    ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-700 hover:via-purple-700 hover:to-pink-600'
-                    } text-white transition-all shadow-md`}
-                >
-                  {event.participants?.length >= event.maxParticipants
-                    ? 'Event Full'
-                    : 'Join Event'}
-                </motion.button>
-              ) : (
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handleLeaveEvent}
-                  className="px-6 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition-all shadow-md cursor-pointer"
-                >
-                  Leave Event
-                </motion.button>
-              )}
             </div>
 
             {participants && participants.length > 0 && (

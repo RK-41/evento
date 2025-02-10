@@ -42,7 +42,7 @@ const Navbar: React.FC = () => {
       {/* Hamburger menu button - visible only on mobile */}
       <button
         title="Menu"
-        className="lg:hidden absolute right-16 top-4 text-white z-20 cursor-pointer"
+        className="lg:hidden absolute right-8 top-5 text-white z-20 cursor-pointer"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -55,7 +55,7 @@ const Navbar: React.FC = () => {
       </button>
 
       {/* Container for desktop layout */}
-      <div className="max-w-7xl mx-auto flex items-center justify-between relative z-10">
+      <div className="max-w-7xl mx-auto h-full flex items-center justify-between relative z-10">
         {/* Logo/Brand - always visible */}
         <div className="w-48">
           <Link to="/" className="text-white text-xl font-bold hover:text-yellow-200 transition-colors">

@@ -18,7 +18,7 @@ const HeroSection: React.FC = () => {
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.8 }}
-          className="text-6xl md:text-7xl font-extrabold mb-6 text-white tracking-tight"
+          className="text-4xl sm:text-6xl md:text-7xl font-extrabold mb-6 text-white tracking-tight"
         >
           Create Unforgettable
           <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 to-yellow-400">
@@ -43,16 +43,17 @@ const HeroSection: React.FC = () => {
         >
           <button
             onClick={() => navigate('/create-event')}
-            className="px-8 py-4 bg-white text-purple-600 rounded-full font-bold text-lg hover:bg-opacity-90 transform hover:scale-105 transition-all shadow-lg cursor-pointer"
+            className="px-8 py-2 sm:py-4 bg-white text-purple-600 rounded-full font-bold text-lg hover:bg-opacity-90 transform hover:scale-105 transition-all shadow-lg cursor-pointer"
           >
             Get Started
           </button>
           <button
             onClick={() => navigate('/events')}
-            className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-full font-bold text-lg hover:bg-white/10 transform hover:scale-105 transition-all cursor-pointer"
+            className="px-8 py-2 sm:py-4 bg-transparent border-2 border-white text-white rounded-full font-bold text-lg hover:bg-white/10 transform hover:scale-105 transition-all cursor-pointer"
           >
             Checkout Events
           </button>
+
         </motion.div>
       </div>
     </motion.section>

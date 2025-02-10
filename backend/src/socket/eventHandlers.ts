@@ -32,10 +32,9 @@ const eventHandlers = (io: Server) => {
 		// Handle join event
 		socket.on(SOCKET_EVENTS.JOIN_EVENT, async ({ eventId, event }) => {
 			try {
-				const updatedEvent = await Event.findById(eventId).populate(
-					'participants',
-					'name email avatar'
-				);
+				const updatedEvent = await Event.findById(eventId)
+					.populate('participants', 'name email avatar')
+					.populate('organizer', 'name email avatar');
 				if (!updatedEvent) return;
 
 				io.to(`event:${eventId}`).emit(
@@ -54,10 +53,9 @@ const eventHandlers = (io: Server) => {
 		// Handle leave event
 		socket.on(SOCKET_EVENTS.LEAVE_EVENT, async ({ eventId, event }) => {
 			try {
-				const updatedEvent = await Event.findById(eventId).populate(
-					'participants',
-					'name email avatar'
-				);
+				const updatedEvent = await Event.findById(eventId)
+					.populate('participants', 'name email avatar')
+					.populate('organizer', 'name email avatar');
 				if (!updatedEvent) return;
 
 				io.to(`event:${eventId}`).emit(

@@ -11,4 +11,11 @@ export default defineConfig({
 		assetsDir: 'assets',
 		sourcemap: true,
 	},
+	server: {
+		allowedHosts: [
+			'localhost',
+			'127.0.0.1',
+			'b04c-49-37-72-107.ngrok-free.app',
+		],
+	},
 });
