@@ -93,9 +93,9 @@ const EventActions = ({
             whileTap={{ scale: 0.95 }}
             onClick={onJoin}
             disabled={eventStatus === 'Ended' || event.participants?.length >= event.maxParticipants}
-            className={`px-6 py-2 rounded-lg cursor-pointer ${eventStatus === 'Ended' || event.participants?.length >= event.maxParticipants
+            className={`px-6 py-2 rounded-lg ${eventStatus === 'Ended' || event.participants?.length >= event.maxParticipants
               ? 'bg-gray-400 cursor-not-allowed'
-              : 'bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-700 hover:via-purple-700 hover:to-pink-600'
+              : 'bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-700 hover:via-purple-700 hover:to-pink-600 cursor-pointer'
               } text-white transition-all shadow-md`}
           >
             {event.participants?.length >= event.maxParticipants

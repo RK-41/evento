@@ -230,8 +230,8 @@ const Profile: React.FC = () => {
               <button
                 onClick={() => setSelectedCategory('all')}
                 className={`px-4 py-2 rounded-lg transition-all duration-300 cursor-pointer ${selectedCategory === 'all'
-                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
-                    : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
+                  ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
+                  : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
                   }`}
               >
                 All
@@ -241,8 +241,8 @@ const Profile: React.FC = () => {
                   key={category}
                   onClick={() => setSelectedCategory(category)}
                   className={`px-4 py-2 rounded-lg transition-all duration-300 cursor-pointer ${selectedCategory === category
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
-                      : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
+                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
+                    : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
                     }`}
                 >
                   {category}
@@ -258,8 +258,8 @@ const Profile: React.FC = () => {
               <button
                 onClick={() => setSelectedStatus('all')}
                 className={`px-4 py-2 rounded-lg transition-all duration-300 cursor-pointer ${selectedStatus === 'all'
-                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
-                    : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
+                  ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
+                  : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
                   }`}
               >
                 All
@@ -269,8 +269,8 @@ const Profile: React.FC = () => {
                   key={status}
                   onClick={() => setSelectedStatus(status)}
                   className={`px-4 py-2 rounded-lg transition-all duration-300 cursor-pointer ${selectedStatus === status
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
-                      : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
+                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
+                    : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
                     }`}
                 >
                   {status}
@@ -282,7 +282,7 @@ const Profile: React.FC = () => {
 
         <div className="flex flex-wrap justify-center gap-4">
           {isLoading ? (
-            <div className="flex items-center justify-center w-full py-8 bg-white/10 backdrop-blur-lg rounded-xl">
+            <div className="flex items-center justify-center w-full py-32 bg-white/10 backdrop-blur-lg rounded-xl">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
             </div>
           ) : filteredEvents.length > 0 ? (
@@ -302,7 +302,7 @@ const Profile: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="text-center py-32 bg-white/10 backdrop-blur-lg rounded-xl shadow-lg w-full"
+              className="text-center py-32 w-full"
             >
               <h3 className="text-xl text-gray-600">No events found</h3>
               {(selectedCategory !== 'all' || selectedStatus !== 'all') && (

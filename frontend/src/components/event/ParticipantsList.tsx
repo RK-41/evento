@@ -1,23 +1,20 @@
 import { motion } from 'framer-motion';
-import { Event } from '../../types';
 
 interface ParticipantsListProps {
-  event: Event;
   participants: any[];
+  maxParticipants: number;
 }
 
-const ParticipantsList = ({ event, participants }: ParticipantsListProps) => {
+const ParticipantsList = ({ participants, maxParticipants }: ParticipantsListProps) => {
   return (
     <div className="mt-8 space-y-6">
       <div className="flex flex-col gap-4">
-        <p className="text-lg font-medium text-gray-800">
-          Participants: {event.participants?.length || 0} / {event.maxParticipants}
-        </p>
+        <h3 className="text-2xl font-semibold text-gray-800">Participants: {participants?.length || 0} / {maxParticipants}</h3>
       </div>
 
       {participants && participants.length > 0 && (
-        <div className="mt-8">
-          <h3 className="text-2xl font-semibold text-gray-800 mb-4">Participants</h3>
+        <div className="mt-2">
+          {/* <h3 className="text-2xl font-semibold text-gray-800 mb-4">Participants</h3> */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {participants.map((participant: any) => (
               <motion.div

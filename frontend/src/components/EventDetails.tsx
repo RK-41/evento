@@ -45,10 +45,6 @@ const EventDetails = () => {
           throw new Error('No event data received');
         }
 
-        console.log('Event data:', eventResponse.data);
-        console.log('Participants data:', participantsResponse.data);
-
-
         setEvent(eventResponse.data);
         setParticipants(participantsResponse.data);
 
@@ -299,8 +295,8 @@ const EventDetails = () => {
 
             {event && (
               <MemoizedParticipantsList
-                event={event}
                 participants={participants}
+                maxParticipants={event.maxParticipants}
               />
             )}
           </div>

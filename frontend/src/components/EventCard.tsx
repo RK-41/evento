@@ -15,8 +15,6 @@ const EventCard = ({ event }: { event: any }) => {
     >
       <motion.img
         initial={{ opacity: 0 }}
-
-
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
         src={event.imageUrl ?? '/images/eventImage.jpg'}

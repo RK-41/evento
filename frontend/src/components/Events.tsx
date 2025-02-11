@@ -203,7 +203,7 @@ const Events = () => {
         </motion.div>
 
         {loading ? (
-          <div className="flex justify-center items-center py-30  bg-white/10 backdrop-blur-lg rounded-xl shadow-lg">
+          <div className="flex justify-center items-center py-30">
             <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-indigo-600"></div>
           </div>
         ) : (
@@ -233,11 +233,11 @@ const Events = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3 }}
-                className="text-center py-32 bg-white/10 backdrop-blur-lg rounded-xl shadow-lg"
+                className="text-center py-32"
               >
                 <h3 className="text-xl text-gray-600">No events found</h3>
 
-                {selectedCategory !== 'all' || selectedStatus !== 'all' && (
+                {(selectedCategory !== 'all' || selectedStatus !== 'all') && (
                   <p className="text-gray-500 mt-2">Try adjusting your filters</p>
                 )}
               </motion.div>
