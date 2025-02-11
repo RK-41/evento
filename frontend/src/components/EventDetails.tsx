@@ -93,22 +93,18 @@ const EventDetails = () => {
       setParticipants(updatedParticipants);
     });
 
-    // Add listeners for user join/leave events
+    // Modify the socket listeners to dismiss existing toasts
     socket.on(SOCKET_EVENTS.USER_JOINED_EVENT, ({ user: joinedUser }) => {
-      toast.dismiss();
       if (joinedUser._id !== user?._id) {
+        toast.dismiss(); // Dismiss existing toasts
         toast.success(`${joinedUser.name} joined the event!`);
-      } else {
-        toast.success(`You joined the event!`);
       }
     });
 
     socket.on(SOCKET_EVENTS.USER_LEFT_EVENT, ({ user: leftUser }) => {
-      toast.dismiss();
       if (leftUser._id !== user?._id) {
+        toast.dismiss(); // Dismiss existing toasts
         toast.success(`${leftUser.name} left the event`);
-      } else {
-        toast.success(`You left the event`);
       }
     });
 
@@ -151,11 +147,11 @@ const EventDetails = () => {
           avatar: user.avatar
         }
       });
-      // toast.dismiss();
-      // toast.success('You joined the event!');
+      toast.dismiss(); // Dismiss existing toasts
+      toast.success('You joined the event!');
     } catch (error) {
       console.error('Error joining event:', error);
-      toast.dismiss();
+      toast.dismiss(); // Dismiss existing toasts
       toast.error('Failed to join event');
     }
   }, [user, navigate, id, socket]);
@@ -183,14 +179,13 @@ const EventDetails = () => {
           avatar: user?.avatar
         }
       });
-      // toast.dismiss();
-      // toast.success('You left the event');
+      toast.dismiss(); // Dismiss existing toasts
+      toast.success('You left the event');
     } catch (error) {
       console.error('Error leaving event:', error);
-      toast.dismiss();
+      toast.dismiss(); // Dismiss existing toasts
       toast.error('Failed to leave event');
     }
-
   }, [user, id, socket]);
 
   const handleDeleteEvent = useCallback(async () => {
