@@ -26,12 +26,12 @@ Evento is a modern, real-time event management platform built with the MERN stac
 - Conference
 - Workshop
 - Social
+- Other
 <!-- - Webinar
 - Meetup
 - Concert
 - Exhibition
 - Sports -->
-- Other
 
 ### Event Statuses
 
@@ -63,7 +63,13 @@ Evento is a modern, real-time event management platform built with the MERN stac
 - JWT for authentication
 - Cloudinary for image management
 
-<!--
+## Deployment
+
+The application is deployed and accessible at:
+
+- [Frontend](https://evento-olive.vercel.app/): Deployed on Vercel
+- [Backend](https://evento-serve.up.railway.app/): Deployed on Railway
+
 ## Getting Started
 
 ### Prerequisites
@@ -72,4 +78,55 @@ Evento is a modern, real-time event management platform built with the MERN stac
 - MongoDB
 - npm or yarn
 - Cloudinary account
--->
+
+### Installation
+
+1. Clone the repository
+
+2. Install dependencies for both frontend and backend
+
+```bash
+# Install backend dependencies
+cd backend
+npm install
+
+# Install frontend dependencies
+cd ../frontend
+npm install
+```
+
+3. Create `.env` files:
+
+Backend `.env`:
+
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+CLOUDINARY_CLOUD_NAME=your_cloudinary_name
+CLOUDINARY_API_KEY=your_cloudinary_key
+CLOUDINARY_API_SECRET=your_cloudinary_secret
+```
+
+Frontend `.env`:
+
+```env
+VITE_API_URL=http://localhost:5000
+VITE_SOCKET_URL=http://localhost:5000
+VITE_CLOUDINARY_CLOUD_NAME=your_cloudinary_name
+VITE_CLOUDINARY_UPLOAD_PRESET=your_cloudinary_upload_preset
+```
+
+4. Start the development servers
+
+```bash
+# Start backend server
+cd backend
+npm run dev
+
+# Start frontend server (in a new terminal)
+cd frontend
+npm run dev
+```
+
+The application should now be running at `http://localhost:5173`
