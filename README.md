@@ -97,18 +97,15 @@ npm install
 
 3. Create `.env` files:
 
-Backend `.env`:
+- Backend `.env`:
 
 ```env
 PORT=5000
-MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
-CLOUDINARY_CLOUD_NAME=your_cloudinary_name
-CLOUDINARY_API_KEY=your_cloudinary_key
-CLOUDINARY_API_SECRET=your_cloudinary_secret
+MONGODB_URI=your_mongodb_connection_string
 ```
 
-Frontend `.env`:
+- Frontend `.env`:
 
 ```env
 VITE_API_URL=http://localhost:5000
