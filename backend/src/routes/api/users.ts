@@ -4,6 +4,7 @@ import {
 	updateUserEvents,
 	updateUserProfile,
 	deleteEvent,
+	getCurrentEvent,
 } from '../../controllers/usersController';
 import { protect } from '../../middleware/auth';
 
@@ -20,5 +21,8 @@ router.patch('/:id', updateUserProfile);
 
 // Delete event (protected route)
 router.delete('/:userId/events/:eventId', protect, deleteEvent);
+
+// Get user's current event (protected route)
+router.get('/:userId/current-event', protect, getCurrentEvent);
 
 export default router;

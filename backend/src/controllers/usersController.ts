@@ -94,3 +94,23 @@ export const deleteEvent = async (req: Request, res: Response) => {
 		res.status(500).json({ message: 'Error deleting event', error });
 	}
 };
+
+export const getCurrentEvent = async (req: Request, res: Response) => {
+	try {
+		const userId = req.params.userId;
+
+		const currentEvent = await Event.findOne({
+			participants: userId,
+			status: { $in: ['Upcoming', 'Live'] },
+		}).select('_id title');
+
+		if (!currentEvent) {
+			return res.status(200).json(null);
+		}
+
+		res.status(200).json(currentEvent);
+	} catch (error) {
+		console.error('Error fetching current event:', error);
+		res.status(500).json({ message: 'Error fetching current event' });
+	}
+};
