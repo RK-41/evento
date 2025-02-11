@@ -12,14 +12,22 @@ const Profile: React.FC = () => {
   const { user, setUser, logout } = useAuth();
   const navigate = useNavigate();
   const [events, setEvents] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedStatus, setSelectedStatus] = useState<string>('all');
+  const [filteredEvents, setFilteredEvents] = useState<any[]>([]);
   const [newName, setNewName] = useState(user?.name || '');
   const [nameError, setNameError] = useState('');
+
+  const categories = ['Conference', 'Workshop', 'Social', 'Other'];
+  const statuses = ['Upcoming', 'Live', 'Ended'];
 
   useEffect(() => {
     const fetchUserData = async () => {
       if (user?._id) {
         try {
+          setIsLoading(true);
           const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/${user._id}`);
           const data = response.data;
 
@@ -28,12 +36,42 @@ const Profile: React.FC = () => {
           }
         } catch (error) {
           console.error('Error fetching user events:', error);
+        } finally {
+          setIsLoading(false);
         }
       }
     };
 
     fetchUserData();
   }, [user?._id]);
+
+  useEffect(() => {
+    const filteredEvents = events
+      .filter(event => {
+        const categoryMatch = selectedCategory === 'all' || event.category === selectedCategory;
+        const statusMatch = selectedStatus === 'all' || event.status === selectedStatus;
+        return categoryMatch && statusMatch;
+      })
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    setFilteredEvents(filteredEvents);
+  }, [events, selectedCategory, selectedStatus]);
+
+  useEffect(() => {
+    events.forEach(event => {
+      const eventDate = new Date(event.date);
+      const today = new Date();
+      const eventDateOnly = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate());
+      const todayDateOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+      if (eventDateOnly > todayDateOnly) {
+        event.status = 'Upcoming';
+      } else if (eventDateOnly < todayDateOnly) {
+        event.status = 'Ended';
+      } else {
+        event.status = 'Live';
+      }
+    });
+  }, [events]);
 
   const item = {
     hidden: { y: 20, opacity: 0 },
@@ -177,9 +215,78 @@ const Profile: React.FC = () => {
         <h2 className="text-3xl font-semibold text-gray-800 mb-6 text-center">
           Events Created by You
         </h2>
+
+        {/* Add Filter Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="flex flex-col gap-6 mb-8"
+        >
+          {/* Categories */}
+          <div className="flex flex-col items-center gap-3">
+            <h3 className="text-gray-700 font-medium">Categories</h3>
+            <div className="flex flex-wrap justify-center gap-2">
+              <button
+                onClick={() => setSelectedCategory('all')}
+                className={`px-4 py-2 rounded-lg transition-all duration-300 cursor-pointer ${selectedCategory === 'all'
+                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
+                    : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
+                  }`}
+              >
+                All
+              </button>
+              {categories.map(category => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-4 py-2 rounded-lg transition-all duration-300 cursor-pointer ${selectedCategory === category
+                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
+                      : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
+                    }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Statuses */}
+          <div className="flex flex-col items-center gap-3">
+            <h3 className="text-gray-700 font-medium">Status</h3>
+            <div className="flex flex-wrap justify-center gap-2">
+              <button
+                onClick={() => setSelectedStatus('all')}
+                className={`px-4 py-2 rounded-lg transition-all duration-300 cursor-pointer ${selectedStatus === 'all'
+                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
+                    : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
+                  }`}
+              >
+                All
+              </button>
+              {statuses.map(status => (
+                <button
+                  key={status}
+                  onClick={() => setSelectedStatus(status)}
+                  className={`px-4 py-2 rounded-lg transition-all duration-300 cursor-pointer ${selectedStatus === status
+                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
+                      : 'bg-white/30 hover:bg-white/50 text-gray-700 shadow-sm hover:shadow-md'
+                    }`}
+                >
+                  {status}
+                </button>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
         <div className="flex flex-wrap justify-center gap-4">
-          {events.length > 0 ? (
-            events.map((event) => (
+          {isLoading ? (
+            <div className="flex items-center justify-center w-full py-8 bg-white/10 backdrop-blur-lg rounded-xl">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+            </div>
+          ) : filteredEvents.length > 0 ? (
+            filteredEvents.map((event) => (
               <motion.div
                 key={event._id}
                 variants={item}
@@ -191,9 +298,17 @@ const Profile: React.FC = () => {
               </motion.div>
             ))
           ) : (
-            <p className="text-gray-600 col-span-2 text-center py-8 bg-white/10 backdrop-blur-lg rounded-xl">
-              You haven't created any events yet.
-            </p>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className="text-center py-32 bg-white/10 backdrop-blur-lg rounded-xl shadow-lg w-full"
+            >
+              <h3 className="text-xl text-gray-600">No events found</h3>
+              {(selectedCategory !== 'all' || selectedStatus !== 'all') && (
+                <p className="text-gray-500 mt-2">Try adjusting your filters</p>
+              )}
+            </motion.div>
           )}
         </div>
       </motion.div>
