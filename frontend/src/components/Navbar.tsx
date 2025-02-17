@@ -71,10 +71,9 @@ const Navbar: React.FC = () => {
           absolute md:relative
           top-14 md:top-0
           left-0
-          w-full md:w-auto md:max-w-80
+          w-full md:w-auto md:max-w-88
           md:bg-transparent
           pb-4 md:pb-0
-          
           md:space-x-12
           rounded-b-lg
           px-4 md:px-8
@@ -83,7 +82,7 @@ const Navbar: React.FC = () => {
           ${isMenuOpen ? 'bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500' : 'bg-transparent'}
         `}>
           {navItems.map((item) => (
-            <li key={item.label} className="w-full md:w-auto mx-auto md:max-w-40">
+            <li key={item.label} className="w-full md:w-auto mx-auto md:max-w-44 flex-1">
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}

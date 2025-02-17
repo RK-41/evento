@@ -11,6 +11,7 @@ import Login from './components/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './components/Profile';
 import { Toaster } from 'react-hot-toast';
+import './scrollbar.css';
 
 function App() {
   return (
