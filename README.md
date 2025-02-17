@@ -54,6 +54,7 @@ Evento is a modern, real-time event management platform built with the `MERN` st
 - Zod for form validation
 - React Router for navigation
 - Socket.IO Client for real-time features
+- Cloudinary for image management
 - Framer Motion for animations
 - TailwindCSS for styling
 
@@ -64,7 +65,6 @@ Evento is a modern, real-time event management platform built with the `MERN` st
 - MongoDB with Mongoose
 - Socket.IO for real-time communication
 - JWT for authentication
-- Cloudinary for image management
 
 ## Deployment
 
