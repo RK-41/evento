@@ -1,8 +1,10 @@
-﻿# Evento - Real-time Event Management Platform
+﻿# [Evento - Real-time Event Management Platform](https://evento-olive.vercel.app)
 
 ## Overview
 
-Evento is a modern, real-time event management platform built with the MERN stack (MongoDB, Express.js, React, Node.js) and Socket.IO for real-time features. It enables users to create, manage, and participate in various events while providing real-time updates.
+Evento is a modern, real-time event management platform built with the `MERN` stack (`MongoDB`, `Express.js`, `React`, `Node.js`) and `Socket.IO` for real-time features. 
+- It enables users to `create`, `manage`, and `participate` in various events while providing real-time updates.
+- It also has a user profile section having all the events created by the user and `Edit Profile` functionality (Only for registered users, not the guest ones).
 
 ## Features
 
@@ -16,6 +18,7 @@ Evento is a modern, real-time event management platform built with the MERN stac
 - 🔐 User authentication and authorization
 - 📱 Responsive design for all devices
 - 🔔 Push notifications for event updates
+- 🔎 Filter events based on category and status
   <!-- - 📍 Location-based event discovery -->
   <!-- - 💬 Real-time chat for event participants -->
   <!-- - 📅 Calendar integration -->
@@ -97,18 +100,15 @@ npm install
 
 3. Create `.env` files:
 
-Backend `.env`:
+- Backend `.env`:
 
 ```env
 PORT=5000
-MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
-CLOUDINARY_CLOUD_NAME=your_cloudinary_name
-CLOUDINARY_API_KEY=your_cloudinary_key
-CLOUDINARY_API_SECRET=your_cloudinary_secret
+MONGODB_URI=your_mongodb_connection_string
 ```
 
-Frontend `.env`:
+- Frontend `.env`:
 
 ```env
 VITE_API_URL=http://localhost:5000
