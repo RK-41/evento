@@ -111,7 +111,7 @@ const EventForm = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="min-h-screen w-full bg-gradient-to-r from-indigo-600/10 via-purple-600/10 to-pink-500/10 py-12 px-4 sm:px-6 lg:px-8"
+        className="min-h-screen w-full bg-gradient-to-r from-indigo-600/10 via-purple-600/10 to-pink-500/10 pt-20 pb-4 px-4 sm:px-6 lg:px-8"
       >
         <motion.div
           initial={{ y: 20 }}
@@ -131,7 +131,7 @@ const EventForm = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
             onSubmit={handleSubmit(onSubmit)}
-            className="bg-white/30 rounded-xl shadow-xl p-8 space-y-6"
+            className="bg-white/30 rounded-xl shadow-xl px-8 py-6 space-y-6"
           >
             <div className="space-y-6">
               <div className="form-group">
@@ -155,7 +155,7 @@ const EventForm = () => {
                 </label>
                 <textarea
                   {...register('description')}
-                  rows={4}
+                  rows={2}
                   className="w-full p-3 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
                   placeholder="Describe your event"
                 />
@@ -251,7 +251,7 @@ const EventForm = () => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.95 }}
               type="submit"
-              className="w-full p-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white rounded-lg hover:from-indigo-700 hover:via-purple-700 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all cursor-pointer"
+              className="w-full p-3 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white rounded-lg hover:from-indigo-700 hover:via-purple-700 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all cursor-pointer"
             >
               Create Event
             </motion.button>

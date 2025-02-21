@@ -49,7 +49,7 @@ function App() {
           />
           <Navbar />
           <AnimatePresence mode="wait">
-            <div className="pt-8">
+            <div>
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route

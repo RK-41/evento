@@ -36,12 +36,12 @@ const Navbar: React.FC = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 100 }}
-      className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 px-4 py-2 w-full fixed top-0 z-10 h-16"
+      className="bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-700 backdrop-blur-sm px-4 py-2 fixed top-0 z-10 h-16 mx-4 my-2 left-0 right-0 rounded-xl"
     >
       {/* Hamburger menu button - visible only on mobile */}
       <button
         title="Menu"
-        className="md:hidden absolute right-8 top-5 text-white z-20 cursor-pointer"
+        className="md:hidden absolute right-4 top-5 text-white z-20 cursor-pointer"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -79,7 +79,7 @@ const Navbar: React.FC = () => {
           px-4 md:px-8
           md:flex-1
           md:justify-center
-          ${isMenuOpen ? 'bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500' : 'bg-transparent'}
+          ${isMenuOpen ? 'bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-700' : 'bg-transparent'}
         `}>
           {navItems.map((item) => (
             <li key={item.label} className="w-full md:w-auto mx-auto md:max-w-44 flex-1">
@@ -124,7 +124,7 @@ const Navbar: React.FC = () => {
 
                     {/* Dropdown menu */}
                     {showDropdown && (
-                      <div className="absolute left-8 top-full w-32 bg-gradient-to-r from-indigo-600/95 via-purple-600/95 to-pink-500/95 rounded-md shadow-xl z-20 text-center border border-white/20">
+                      <div className="absolute left-8 top-full w-32 bg-gradient-to-r from-indigo-700/95 via-purple-700/95 to-pink-700/95 rounded-md shadow-xl z-20 text-center border border-white/20">
                         <Link
                           to="/profile"
                           className="block px-4 py-2 text-white hover:bg-white/20 rounded-t-md transition-colors"
@@ -184,7 +184,7 @@ const Navbar: React.FC = () => {
 
                   {/* Dropdown menu */}
                   {showDropdown && (
-                    <div className="absolute -right-2 top-full w-32 bg-gradient-to-r from-indigo-600/95 via-purple-600/95 to-pink-500/95 rounded-md shadow-xl z-20 border border-white/20 text-center">
+                    <div className="absolute -right-2 top-full w-32 bg-gradient-to-r from-indigo-700/95 via-purple-700/95 to-pink-700/95 rounded-md shadow-xl z-20 border border-white/20 text-center">
                       <Link
                         to="/profile"
                         className="block px-4 py-2 text-white hover:bg-white/20 rounded-t-md transition-colors"

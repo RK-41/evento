@@ -32,5 +32,5 @@
 /* For Firefox */
 * {
 	scrollbar-width: thin;
-	scrollbar-color: rgb(207, 0, 135) rgba(250, 220, 247, 0.735); /* indigo for thumb, light gray for track */
+	scrollbar-color: rgb(0, 0, 0) rgba(250, 220, 247, 0.735); /* indigo for thumb, light gray for track */
 }

@@ -10,8 +10,14 @@ const HeroSection: React.FC = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
-      className="relative flex flex-col justify-center items-center text-center min-h-screen w-full bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 overflow-hidden"
+      className="relative flex flex-col justify-center items-center text-center min-h-screen w-full bg-slate-900 overflow-hidden"
     >
+      {/* Animated background */}
+      <div className="absolute inset-0 w-full h-full">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(79,70,229,0.35),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(236,72,153,0.25),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(147,51,234,0.35),transparent_50%)]" />
+      </div>
       {/* Main content */}
       <div className="relative z-[1] px-4 w-full max-w-7xl mx-auto">
         <motion.h1
@@ -43,7 +49,7 @@ const HeroSection: React.FC = () => {
         >
           <button
             onClick={() => navigate('/create-event')}
-            className="px-8 py-2 sm:py-4 bg-white text-purple-600 rounded-full font-bold text-lg hover:bg-opacity-90 transform hover:scale-105 transition-all shadow-lg cursor-pointer"
+            className="px-8 py-2 sm:py-4 bg-white text-slate-950 rounded-full font-bold text-lg hover:bg-opacity-90 transform hover:scale-105 transition-all shadow-lg cursor-pointer"
           >
             Get Started
           </button>
