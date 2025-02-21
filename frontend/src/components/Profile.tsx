@@ -117,7 +117,7 @@ const Profile: React.FC = () => {
         </motion.h1>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 1 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3 }}
           className="bg-white/10 backdrop-blur-lg rounded-xl shadow-xl p-8 border border-white/20"
@@ -180,7 +180,7 @@ const Profile: React.FC = () => {
                   <div className="flex flex-col gap-4">
                     <motion.button
                       whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.95 }}
+                      whileTap={{ scale: 1 }}
                       onClick={() => setIsEditProfileOpen(true)}
                       className="px-6 py-2 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white rounded-lg hover:from-indigo-700 hover:via-purple-700 hover:to-pink-600 transition-all shadow-md cursor-pointer"
                     >
@@ -188,7 +188,7 @@ const Profile: React.FC = () => {
                     </motion.button>
                     <motion.button
                       whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.95 }}
+                      whileTap={{ scale: 1 }}
                       onClick={() => {
                         logout();
                         navigate('/');

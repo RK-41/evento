@@ -53,7 +53,7 @@ const EventActions = ({
           <>
             <motion.button
               whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.95 }}
+              whileTap={{ scale: 1 }}
               onClick={() => setShowDeleteDialog(true)}
               className="px-6 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition-all shadow-md cursor-pointer"
             >
@@ -103,7 +103,7 @@ const EventActions = ({
           <>
             <motion.button
               whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.95 }}
+              whileTap={{ scale: 1 }}
               onClick={handleJoinClick}
               disabled={eventStatus === 'Ended' || event.participants?.length >= event.maxParticipants}
               className={`px-6 py-2 rounded-lg ${eventStatus === 'Ended' || event.participants?.length >= event.maxParticipants
@@ -156,7 +156,7 @@ const EventActions = ({
         ) : (
           <motion.button
             whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.95 }}
+            whileTap={{ scale: 1 }}
             onClick={onLeave}
             className="px-6 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition-all shadow-md cursor-pointer"
           >

@@ -70,7 +70,7 @@ const EventCard = ({ event }: { event: any }) => {
         <div className="pt-4">
           <motion.div
             whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.95 }}
+            whileTap={{ scale: 1 }}
             className="w-full py-2 px-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white rounded-lg hover:from-indigo-700 hover:via-purple-700 hover:to-pink-600 transition-all text-center cursor-pointer shadow-md"
           >
             View Details

@@ -302,11 +302,19 @@ const EventDetails = () => {
   }, [socket, id, navigate]);
 
   if (error) {
-    return <p className="text-red-500">{error}</p>;
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <p className="text-red-500">{error}</p>
+      </div>
+    );
   }
 
   if (!event) {
-    return <p className="text-gray-500">Loading...</p>;
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-indigo-600"></div>
+      </div>
+    );
   }
 
   return (

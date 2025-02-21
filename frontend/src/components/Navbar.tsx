@@ -56,11 +56,16 @@ const Navbar: React.FC = () => {
       {/* Container for desktop layout */}
       <div className="max-w-full mx-auto h-full flex items-center justify-between relative z-10">
         {/* Logo/Brand - always visible */}
-        <div className="w-48">
-          <Link to="/" className="text-white text-xl font-bold hover:text-yellow-200 transition-colors">
-            Evento
-          </Link>
-        </div>
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 1 }}
+        >
+          <div className="w-48">
+            <Link to="/" className="text-white text-xl font-bold hover:text-yellow-200 transition-colors">
+              Evento
+            </Link>
+          </div>
+        </motion.div>
 
         {/* Navigation items */}
         <ul className={`
@@ -85,7 +90,7 @@ const Navbar: React.FC = () => {
             <li key={item.label} className="w-full md:w-auto mx-auto md:max-w-44 flex-1">
               <motion.div
                 whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
+                whileTap={{ scale: 1 }}
                 className="w-full md:w-auto"
               >
                 <Link
@@ -103,7 +108,7 @@ const Navbar: React.FC = () => {
           <li className="md:hidden w-full flex justify-center">
             <motion.div
               whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
+              whileTap={{ scale: 1 }}
             >
               {user ? (
                 <div className="relative">
@@ -162,7 +167,7 @@ const Navbar: React.FC = () => {
         <div className="hidden md:block w-48 text-right">
           <motion.div
             whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
+            whileTap={{ scale: 1 }}
           >
             {user ? (
               <div className="relative">
