@@ -64,8 +64,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         name,
         email,
         password,
-
-
       });
       const userData = response.data;
       setUser(userData);
@@ -86,7 +84,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         {},
         {
           headers: {
-
             'Content-Type': 'application/json',
           },
         }

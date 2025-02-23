@@ -7,10 +7,10 @@ import { useAuth } from '../context/AuthContext';
 import { Event } from '../types';
 import { SOCKET_EVENTS } from '../constants/socketEvents';
 import { calculateEventStatus } from '../utils/eventUtils';
-import EventHeader from './event/EventHeader';
-import EventActions from './event/EventActions';
-import EventInfo from './event/EventInfo';
-import ParticipantsList from './event/ParticipantsList';
+import EventHeader from './eventDetails/EventHeader';
+import EventActions from './eventDetails/EventActions';
+import EventInfo from './eventDetails/EventInfo';
+import ParticipantsList from './eventDetails/ParticipantsList';
 import React from 'react';
 import { toast } from 'react-hot-toast';
 
@@ -143,7 +143,7 @@ const EventDetails = () => {
   // Memoize handlers
   const handleJoinEvent = useCallback(async () => {
     if (!user) {
-      navigate('/login', { state: { from: `/events/${id}` } });
+      navigate('/auth', { state: { from: `/events/${id}` } });
       return;
     }
 

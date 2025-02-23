@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import EventForm from './components/EventForm'
+import EventForm from './components/CreateEvent'
 import EventDetails from './components/EventDetails'
 import HomePage from './components/HomePage';
 import Navbar from './components/Navbar';
@@ -7,7 +7,7 @@ import Events from './components/Events';
 import { AnimatePresence } from 'framer-motion';
 import { SocketProvider } from './context/SocketContext';
 import { AuthProvider } from './context/AuthContext';
-import Login from './components/Login';
+import Auth from './components/Auth';
 import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './components/Profile';
 import { Toaster } from 'react-hot-toast';
@@ -29,8 +29,8 @@ function App() {
               },
               success: {
                 iconTheme: {
-                  primary: '#6366F1',
-                  secondary: 'white',
+                  primary: '#aa33ff',
+                  secondary: '#ffffff',
                 },
               },
               error: {
@@ -42,30 +42,32 @@ function App() {
             }}
             gutter={8}
             containerStyle={{
-              top: 48,
+              top: 52,
             }}
             containerClassName="toast-container"
             reverseOrder={false}
           />
           <Navbar />
           <AnimatePresence mode="wait">
-            <div>
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route
-                  path="/create-event"
-                  element={
-                    <ProtectedRoute>
-                      <EventForm />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route path="/login" element={<Login />} />
-                <Route path="/events" element={<Events />} />
-                <Route path="/events/:id" element={<EventDetails />} />
-                <Route path="/profile" element={<Profile />} />
-              </Routes>
-            </div>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route
+                path="/create-event"
+                element={
+                  <ProtectedRoute>
+                    <EventForm />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/events/:id" element={<EventDetails />} />
+              <Route path="/profile" element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              } />
+            </Routes>
           </AnimatePresence>
         </Router>
       </SocketProvider>

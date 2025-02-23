@@ -19,7 +19,6 @@ const Profile: React.FC = () => {
   const [filteredEvents, setFilteredEvents] = useState<any[]>([]);
   const [newName, setNewName] = useState(user?.name || '');
   const [nameError, setNameError] = useState('');
-
   const categories = ['Conference', 'Workshop', 'Social', 'Other'];
   const statuses = ['Upcoming', 'Live', 'Ended'];
 
@@ -98,6 +97,18 @@ const Profile: React.FC = () => {
       toast.error('Failed to update profile');
     }
   };
+
+  if (isLoading) {
+    return <div className="flex items-center justify-center w-full h-screen py-32 bg-white/10 backdrop-blur-lg rounded-xl">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+    </div>
+  }
+
+  if (!user) {
+    return <div className="flex items-center justify-center w-full h-screen py-32 bg-white/10 backdrop-blur-lg rounded-xl">
+      <div className="rounded-full h-12 w-12 border-b-2 border-indigo-600">User not found</div>
+    </div>
+  }
 
   return (
     <motion.div

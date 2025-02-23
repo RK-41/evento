@@ -22,12 +22,12 @@ const eventSchema = z.object({
 });
 
 
-type EventFormData = z.infer<typeof eventSchema>;
+type CreateEventData = z.infer<typeof eventSchema>;
 
-const EventForm = () => {
+const CreateEvent = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const { register, handleSubmit, formState: { errors } } = useForm<EventFormData>({
+  const { register, handleSubmit, formState: { errors } } = useForm<CreateEventData>({
     resolver: zodResolver(eventSchema),
   });
   console.log(errors);
@@ -69,7 +69,7 @@ const EventForm = () => {
     );
   };
 
-  const onSubmit = async (data: EventFormData) => {
+  const onSubmit = async (data: CreateEventData) => {
     try {
       const eventData = {
         ...data,
@@ -262,4 +262,4 @@ const EventForm = () => {
   );
 };
 
-export default EventForm; 
+export default CreateEvent; 
